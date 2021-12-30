@@ -1,46 +1,44 @@
 import "./App.css";
 import { useMemo } from "react";
-function App() {
-  console.log("matrix");
 
-  const matrix = useMemo(() => {
-    const m = 3,
-      n = 4;
-    const result = [];
+const genMatrix = (m, n) => {
+  const result = [];
 
-    for (let i = 0; i < m; i++) {
-      result[i] = [];
+  for (let i = 0; i < m; i++) {
+    result[i] = [];
 
-      for (let j = 0; j < n; j++) {
-        const cellValue = Math.floor(Math.random() * 1000);
+    for (let j = 0; j < n; j++) {
+      const cellValue = Math.floor(Math.random() * 1000);
 
-        result[i][j] = {
-          id: Symbol(),
-          amount: cellValue,
-        };
-      }
+      result[i][j] = {
+        id: Symbol(),
+        amount: cellValue,
+      };
     }
+  }
 
-    return result;
-  }, []);
+  return result;
+};
 
+function App() {
+  const matrix = useMemo(() => genMatrix(3, 4), []);
   const rowsSum = useMemo(() => {
-    return matrix.map(function (row) {
-      return row.reduce(function (a, b) {
+    return matrix.map((row) => {
+      return row.reduce((a, b) => {
         return a + b.amount;
       }, 0);
     });
   }, [matrix]);
+
   const columnsSum = useMemo(() => {
-    return matrix.reduce(function (row, ind) {
-      ind.forEach(function (el, i) {
+    return matrix.reduce((row, ind) => {
+      ind.forEach((el, i) => {
         row[i] = (row[i] || 0) + el.amount;
       });
       return row;
     }, []);
   }, [matrix]);
 
-  console.log(matrix, rowsSum);
   return (
     <div className="App">
       <p>table</p>
