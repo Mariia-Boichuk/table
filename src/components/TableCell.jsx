@@ -5,12 +5,7 @@ export const TableCell = ({ val, className, i, j }) => {
   const {
     n,
     m,
-    setm,
-    setn,
-    matrix,
-    rowsSum,
-    columnsSum,
-    setmatrix2,
+
     dispatch,
   } = useContext(MatrixContext);
   return (

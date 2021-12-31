@@ -2,9 +2,8 @@ import React, { useContext } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 
-export const Table = ({}) => {
-  const { n, m, setm, setn, matrix, rowsSum, columnsSum } =
-    useContext(MatrixContext);
+export const Table = () => {
+  const { matrix, rowsSum, columnsSum } = useContext(MatrixContext);
   console.log("kk", matrix);
   return (
     <table className="wrapper">
