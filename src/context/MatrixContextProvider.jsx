@@ -1,13 +1,14 @@
 import React, { createContext, useMemo, useReducer, useState } from "react";
 import { genMatrix } from "../helpers/genMatrix";
+import { getClosestValues } from "../helpers/getClosestValues";
 
 export const MatrixContext = createContext();
 
 export const matrixReducer = (state, action) => {
+  const { i, j } = action.payload;
+
   switch (action.type) {
     case "INCRECELL":
-      const { i, j } = action.payload;
-
       state[i][j].amount += 1;
 
       return [...state];
@@ -16,6 +17,10 @@ export const matrixReducer = (state, action) => {
       console.log("create m");
       let matrix = genMatrix(action.payload.m, action.payload.n);
       return matrix;
+
+    case "HILIGHT_CLOSE_VALUES":
+      console.log(getClosestValues(state));
+      return state;
 
     default:
       return state;
@@ -57,7 +62,7 @@ export const MatrixContextProvider = (props) => {
       x,
       setx,
     }),
-    [n, m, rowsSum, columnsSum, matrix]
+    [setm, m, setn, n, rowsSum, columnsSum, matrix, dispatch, x, setx]
   );
 
   return (
