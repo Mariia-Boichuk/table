@@ -6,12 +6,17 @@ export const MatrixContext = createContext();
 export const matrixReducer = (state, action) => {
   switch (action.type) {
     case "INCRECELL":
-      console.log("GG");
-      return { ...state, INCRECELL: true };
+      const { i, j } = action.payload;
+
+      state[i][j].amount += 1;
+
+      return [...state];
+
     case "CREATE_MATRIX":
       console.log("create m");
-      const matrix = genMatrix(action.payload.m, action.payload.n);
-      return { ...state, CREATE_MATRIX: matrix };
+      let matrix = genMatrix(action.payload.m, action.payload.n);
+      return matrix;
+
     default:
       return state;
   }
@@ -21,16 +26,7 @@ export const MatrixContextProvider = (props) => {
   const [m, setm] = useState(2);
   const [n, setn] = useState(3);
   const [x, setx] = useState(3);
-  const [matrixtate, dispatch] = useReducer(matrixReducer, {
-    CREATE_MATRIX: [],
-  });
-  const matrix = matrixtate.CREATE_MATRIX;
-  // console.log("incree ", matrixtate.INCRECELL);
-  // if (matrixtate.INCRECELL) {
-  //   console.log("incree if ", matrixtate.INCRECELL);
-  //   matrix["1"]["1"].amount = 222;
-  //   console.log(matrix);
-  // }
+  const [matrix, dispatch] = useReducer(matrixReducer, []);
   const rowsSum = useMemo(() => {
     return matrix.map((row) => {
       return row.reduce((a, b) => {
@@ -60,7 +56,6 @@ export const MatrixContextProvider = (props) => {
       dispatch,
       x,
       setx,
-      matrixtate,
     }),
     [n, m, rowsSum, columnsSum, matrix]
   );
