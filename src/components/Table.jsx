@@ -1,21 +1,18 @@
 import React, { useContext } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
+import { TableRow } from "./TableRow.jsx";
 
 export const Table = () => {
-  const { matrix, rowsSum, columnsSum } = useContext(MatrixContext);
-  console.log("kk", matrix);
+  const { matrix, columnsSum } = useContext(MatrixContext);
+  console.log("matrix: ", matrix);
   return (
     <table className="wrapper">
       <tbody>
-        {matrix.map((row, i) => (
-          <tr key={i}>
-            {row.map((col, j) => {
-              return <TableCell key={j} i={i} j={j} val={col.amount} />;
-            })}
-            <TableCell className="aside" val={rowsSum[i]} />
-          </tr>
-        ))}
+        {matrix.map((row, i) => {
+          console.log(row);
+          return <TableRow key={i} i={i} row={row} />;
+        })}
         {columnsSum.map((el) => (
           <TableCell className="below" val={el} />
         ))}

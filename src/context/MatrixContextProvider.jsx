@@ -1,4 +1,10 @@
-import React, { createContext, useMemo, useReducer, useState } from "react";
+import React, {
+  createContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 
 export const MatrixContext = createContext();
 
@@ -35,10 +41,19 @@ export const matrixReducer = (state, action) => {
 export const MatrixContextProvider = (props) => {
   const [m, setm] = useState(2);
   const [n, setn] = useState(3);
-  let matrix = useMemo(() => genMatrix(m, n), [m, n]);
-
+  const [x, setx] = useState(3);
   const [matrixtate, dispatch] = useReducer(matrixReducer, {});
 
+  let matrix = useMemo(() => {
+    return genMatrix(m, n);
+  }, [m, n]);
+
+  console.log("incree ", matrixtate.INCRECELL);
+  if (matrixtate.INCRECELL) {
+    console.log("incree if ", matrixtate.INCRECELL);
+    matrix["1"]["1"].amount = 222;
+    console.log(matrix);
+  }
   const rowsSum = useMemo(() => {
     return matrix.map((row) => {
       return row.reduce((a, b) => {
@@ -65,6 +80,8 @@ export const MatrixContextProvider = (props) => {
       columnsSum,
       matrix,
       dispatch,
+      x,
+      setx,
     }),
     [n, m, rowsSum, columnsSum, matrix]
   );
