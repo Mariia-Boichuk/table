@@ -10,7 +10,8 @@ export const matrixReducer = (state, action) => {
       return { ...state, INCRECELL: true };
     case "CREATE_MATRIX":
       console.log("create m");
-      return { ...state, CREATE_MATRIX: true };
+      const matrix = genMatrix(action.payload.m, action.payload.n);
+      return { ...state, CREATE_MATRIX: matrix };
     default:
       return state;
   }
@@ -20,11 +21,10 @@ export const MatrixContextProvider = (props) => {
   const [m, setm] = useState(2);
   const [n, setn] = useState(3);
   const [x, setx] = useState(3);
-  const [matrixtate, dispatch] = useReducer(matrixReducer, {});
-  let matrix = [];
-  if (matrixtate.CREATE_MATRIX) {
-    matrix = genMatrix(m, n);
-  }
+  const [matrixtate, dispatch] = useReducer(matrixReducer, {
+    CREATE_MATRIX: [],
+  });
+  const matrix = matrixtate.CREATE_MATRIX;
   // console.log("incree ", matrixtate.INCRECELL);
   // if (matrixtate.INCRECELL) {
   //   console.log("incree if ", matrixtate.INCRECELL);
@@ -60,6 +60,7 @@ export const MatrixContextProvider = (props) => {
       dispatch,
       x,
       setx,
+      matrixtate,
     }),
     [n, m, rowsSum, columnsSum, matrix]
   );

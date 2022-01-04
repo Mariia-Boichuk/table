@@ -4,7 +4,8 @@ import { MatrixContext } from "./context/MatrixContextProvider";
 import { Table } from "./components/Table";
 
 function App() {
-  const { n, m, setm, setn, x, setx, dispatch } = useContext(MatrixContext);
+  const { n, m, setm, setn, x, setx, dispatch, matrixtate } =
+    useContext(MatrixContext);
 
   return (
     <div className="App">
@@ -16,10 +17,12 @@ function App() {
       <label>X</label>
       <input type="number" onChange={(e) => setx(e.target.value)} value={x} />
 
-      <button onClick={() => dispatch({ type: "CREATE_MATRIX" })}>
+      <button
+        onClick={() => dispatch({ type: "CREATE_MATRIX", payload: { m, n } })}
+      >
         crete matrix
       </button>
-      <Table />
+      {matrixtate.CREATE_MATRIX && <Table />}
     </div>
   );
 }
