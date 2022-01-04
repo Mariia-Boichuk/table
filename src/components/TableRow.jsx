@@ -7,7 +7,7 @@ export const TableRow = ({ i, row }) => {
   return (
     <tr key={i}>
       {row.map((col, j) => {
-        return <TableCell key={j} i={i} j={j} val={col.amount} />;
+        return <TableCell key={j} val={col.amount} />;
       })}
       <TableCell className="aside" val={rowsSum[i]} />
     </tr>

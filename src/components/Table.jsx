@@ -9,10 +9,9 @@ export const Table = () => {
   return (
     <table className="wrapper">
       <tbody>
-        {matrix.map((row, i) => {
-          console.log(row);
-          return <TableRow key={i} i={i} row={row} />;
-        })}
+        {matrix.map((row, i) => (
+          <TableRow key={i} i={i} row={row} />
+        ))}
         {columnsSum.map((el) => (
           <TableCell className="below" val={el} />
         ))}
