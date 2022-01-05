@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
+import { ClosevalsContext } from "../context/ClosevalsContextProvider";
 import { MatrixContext } from "../context/MatrixContextProvider";
+import { getClosestValues } from "../helpers/getClosestValues";
 
-export const TableCell = ({ val, className, i, j, mainTableCell }) => {
-  const { dispatch } = useContext(MatrixContext);
+export const TableCell = ({ val, className, i, j, mainTableCell, symbol }) => {
+  const { dispatch, matrix } = useContext(MatrixContext);
+  const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
   return (
     <td
-      className={className}
+      className={closeValues.includes(symbol) ? "hilight" : className}
       onClick={
         mainTableCell
           ? () => {
@@ -16,11 +19,8 @@ export const TableCell = ({ val, className, i, j, mainTableCell }) => {
       onMouseEnter={
         mainTableCell
           ? () => {
-              console.log("hover");
-              dispatch({
-                type: "HILIGHT_CLOSE_VALUES",
-                payload: { targetValue: val },
-              });
+              setCloseValues(getClosestValues(matrix, val, x, symbol));
+              console.log(closeValues);
             }
           : undefined
       }

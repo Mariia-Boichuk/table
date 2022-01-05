@@ -2,10 +2,11 @@ import "./App.css";
 import { useContext } from "react";
 import { MatrixContext } from "./context/MatrixContextProvider";
 import { Table } from "./components/Table";
+import { ClosevalsContext } from "./context/ClosevalsContextProvider";
 
 function App() {
-  const { n, m, setm, setn, x, setx, dispatch, matrixState } =
-    useContext(MatrixContext);
+  const { n, m, setm, setn, dispatch, matrix } = useContext(MatrixContext);
+  const { x, setx } = useContext(ClosevalsContext);
 
   return (
     <div className="App">
@@ -22,7 +23,7 @@ function App() {
       >
         crete matrix
       </button>
-      {matrixState.length !== 0 && <Table />}
+      {matrix.length !== 0 && <Table />}
     </div>
   );
 }

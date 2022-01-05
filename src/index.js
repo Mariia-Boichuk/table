@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { MatrixContextProvider } from "./context/MatrixContextProvider.jsx";
+import { ClosevalsContextProvider } from "./context/ClosevalsContextProvider";
 
 ReactDOM.render(
   <MatrixContextProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <ClosevalsContextProvider>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ClosevalsContextProvider>
   </MatrixContextProvider>,
   document.getElementById("root")
 );

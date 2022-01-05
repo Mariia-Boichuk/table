@@ -3,7 +3,7 @@ import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 
 export const TableRow = ({ i, row }) => {
-  const { rowsSum, matrixState } = useContext(MatrixContext);
+  const { rowsSum } = useContext(MatrixContext);
 
   return (
     <tr key={i}>
@@ -12,14 +12,15 @@ export const TableRow = ({ i, row }) => {
           <TableCell
             key={j}
             val={col.amount}
+            symbol={col.id}
             i={i}
             j={j}
             mainTableCell={true}
-            className={
-              matrixState.valuesToHightLight.includes(col.amount)
-                ? "hilight"
-                : ""
-            }
+            // className={
+            //   matrixState.valuesToHightLight.includes(col.amount)
+            //     ? "hilight"
+            //     : ""
+            // }
           />
         );
       })}

@@ -5,7 +5,6 @@ import { TableRow } from "./TableRow.jsx";
 
 export const Table = () => {
   const { matrix, columnsSum } = useContext(MatrixContext);
-  console.log("matrix: ", matrix);
   return (
     <table className="wrapper">
       <tbody>
