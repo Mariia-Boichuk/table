@@ -1,14 +1,12 @@
 export const getClosestValues = (matrix, targetCell, x) => {
   x = 4;
-  targetCell = 500;
-  const result = [...matrix];
-
-  return result
-    .flat()
+  console.log(matrix);
+  return matrix
     .map((item) => {
-      item.amount = Math.abs(item.amount - targetCell);
+      item.diff = Math.abs(item.amount - targetCell);
       return item;
     })
-    .sort((a, b) => a.amount - b.amount)
-    .slice(0, x);
+    .sort((a, b) => a.diff - b.diff)
+    .slice(0, x)
+    .map((el) => el.amount);
 };

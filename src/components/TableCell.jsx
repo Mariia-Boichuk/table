@@ -13,11 +13,14 @@ export const TableCell = ({ val, className, i, j, mainTableCell }) => {
             }
           : undefined
       }
-      onMouseOver={
+      onMouseEnter={
         mainTableCell
           ? () => {
               console.log("hover");
-              dispatch({ type: "HILIGHT_CLOSE_VALUES", payload: { i, j } });
+              dispatch({
+                type: "HILIGHT_CLOSE_VALUES",
+                payload: { targetValue: val },
+              });
             }
           : undefined
       }

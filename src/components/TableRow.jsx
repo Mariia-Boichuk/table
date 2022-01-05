@@ -3,7 +3,8 @@ import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 
 export const TableRow = ({ i, row }) => {
-  const { rowsSum } = useContext(MatrixContext);
+  const { rowsSum, matrixState } = useContext(MatrixContext);
+
   return (
     <tr key={i}>
       {row.map((col, j) => {
@@ -14,6 +15,11 @@ export const TableRow = ({ i, row }) => {
             i={i}
             j={j}
             mainTableCell={true}
+            className={
+              matrixState.valuesToHightLight.includes(col.amount)
+                ? "hilight"
+                : ""
+            }
           />
         );
       })}

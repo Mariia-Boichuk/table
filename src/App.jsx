@@ -4,7 +4,7 @@ import { MatrixContext } from "./context/MatrixContextProvider";
 import { Table } from "./components/Table";
 
 function App() {
-  const { n, m, setm, setn, x, setx, dispatch, matrix } =
+  const { n, m, setm, setn, x, setx, dispatch, matrixState } =
     useContext(MatrixContext);
 
   return (
@@ -22,7 +22,7 @@ function App() {
       >
         crete matrix
       </button>
-      {matrix.length !== 0 && <Table />}
+      {matrixState.length !== 0 && <Table />}
     </div>
   );
 }

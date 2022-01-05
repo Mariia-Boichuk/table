@@ -9,18 +9,26 @@ export const matrixReducer = (state, action) => {
 
   switch (action.type) {
     case "INCRECELL":
-      state[i][j].amount += 1;
+      state.MATRIX[i][j].amount += 1;
 
-      return [...state];
+      return { ...state, MATRIX: [...state.MATRIX] };
 
     case "CREATE_MATRIX":
       console.log("create m");
       let matrix = genMatrix(action.payload.m, action.payload.n);
-      return matrix;
+      return { ...state, MATRIX: matrix };
 
     case "HILIGHT_CLOSE_VALUES":
-      console.log(getClosestValues(state));
-      return state;
+      const values = getClosestValues(
+        state.MATRIX.flat(),
+        action.payload.targetValue
+      );
+      console.log("hjjkj");
+      return {
+        ...state,
+        valuesToHightLight: values,
+        MATRIX: [...state.MATRIX],
+      };
 
     default:
       return state;
@@ -31,7 +39,11 @@ export const MatrixContextProvider = (props) => {
   const [m, setm] = useState(2);
   const [n, setn] = useState(3);
   const [x, setx] = useState(3);
-  const [matrix, dispatch] = useReducer(matrixReducer, []);
+  const [matrixState, dispatch] = useReducer(matrixReducer, {
+    MATRIX: [],
+    valuesToHightLight: [],
+  });
+  const matrix = matrixState.MATRIX;
   const rowsSum = useMemo(() => {
     return matrix.map((row) => {
       return row.reduce((a, b) => {
@@ -61,6 +73,7 @@ export const MatrixContextProvider = (props) => {
       dispatch,
       x,
       setx,
+      matrixState,
     }),
     [setm, m, setn, n, rowsSum, columnsSum, matrix, dispatch, x, setx]
   );
