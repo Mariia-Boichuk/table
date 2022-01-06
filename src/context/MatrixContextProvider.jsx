@@ -25,13 +25,13 @@ export const matrixReducer = (state, action) => {
       return { ...state, MATRIX: matrix1 };
 
     case "ADD_ROW":
-      const { m, n } = action.payload;
+      const { n } = action.payload;
       const newRow = [];
       for (let index = 0; index < n; index++) {
         newRow[index] = genereteElement();
       }
       state.MATRIX.push(newRow);
-      return { ...state, MATRIX: [...state.MATRIX] };
+      return { ...state, MATRIX: state.MATRIX };
 
     case "CREATE_MATRIX":
       console.log("create m");
@@ -54,7 +54,7 @@ export const MatrixContextProvider = (props) => {
         return a + b.amount;
       }, 0);
     });
-  }, [matrix]);
+  }, [matrix, matrix.length]);
 
   const columnsSum = useMemo(() => {
     return matrix.reduce((row, ind) => {
