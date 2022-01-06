@@ -10,7 +10,7 @@ export const TableCell = ({
   j,
   mainTableCell,
   symbol,
-  setrowHovered,
+  setRowHovered,
 }) => {
   const { dispatch, matrix } = useContext(MatrixContext);
   const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
@@ -20,7 +20,7 @@ export const TableCell = ({
       onClick={
         mainTableCell
           ? () => {
-              dispatch({ type: "INCRECELL", payload: { i, j } });
+              dispatch({ type: "INCREMENT_CELL", payload: { i, j } });
             }
           : undefined
       }
@@ -28,11 +28,13 @@ export const TableCell = ({
         if (mainTableCell)
           setCloseValues(getClosestValues(matrix, val, x, symbol));
         if (className === "aside") {
-          setrowHovered(true);
+          setRowHovered(true);
         }
       }}
       onMouseLeave={
-        className === "aside" ? () => setrowHovered(false) : undefined
+        className === "aside"
+          ? () => setRowHovered(false)
+          : () => setCloseValues([])
       }
     >
       {val}

@@ -1,4 +1,4 @@
-export const genereteElement = () => {
+export const generateElement = () => {
   const cellValue = Math.floor(Math.random() * (999 - 100) + 100);
 
   return {
@@ -14,7 +14,7 @@ export const genMatrix = (m, n) => {
     result[i] = [];
 
     for (let j = 0; j < n; j++) {
-      result[i][j] = genereteElement();
+      result[i][j] = generateElement();
     }
   }
 

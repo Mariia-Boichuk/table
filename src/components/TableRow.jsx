@@ -3,13 +3,14 @@ import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 
 export const TableRow = ({ i, row }) => {
-  const { rowsSum } = useContext(MatrixContext);
-  const [rowHovered, setrowHovered] = useState(false);
+  const { rowsSum, dispatch } = useContext(MatrixContext);
+  const [rowHovered, setRowHovered] = useState(false);
   return (
     <tr key={i}>
       {row.map((col, j) => {
         return (
           <TableCell
+            className={rowHovered && "percentage"}
             key={j}
             val={
               rowHovered
@@ -27,8 +28,15 @@ export const TableRow = ({ i, row }) => {
         className="aside"
         val={rowsSum[i]}
         i={i}
-        setrowHovered={setrowHovered}
+        setRowHovered={setRowHovered}
       />
+      <button
+        onClick={() =>
+          dispatch({ type: "DELETE_ROW", payload: { rowToDel: i } })
+        }
+      >
+        delete row
+      </button>
     </tr>
   );
 };

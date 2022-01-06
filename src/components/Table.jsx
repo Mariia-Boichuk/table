@@ -12,7 +12,12 @@ export const Table = () => {
           <TableRow key={i} i={i} row={row} />
         ))}
         {columnsSum.map((el, i) => (
-          <TableCell className="below" i={i} val={el} />
+          <TableCell
+            className="below"
+            i={i}
+            val={Math.floor(el / matrix.length)}
+            key={i}
+          />
         ))}
       </tbody>
     </table>

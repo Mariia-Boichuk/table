@@ -1,5 +1,5 @@
 import React, { createContext, useMemo, useReducer } from "react";
-import { genereteElement, genMatrix } from "../helpers/genMatrix";
+import { generateElement, genMatrix } from "../helpers/genMatrix";
 
 export const MatrixContext = createContext();
 
@@ -7,7 +7,7 @@ export const matrixReducer = (state, action) => {
   const { i, j } = action.payload;
 
   switch (action.type) {
-    case "INCRECELL":
+    case "INCREMENT_CELL":
       const mat = state.MATRIX.map((item, index) => {
         item.map((itemCell, jCell) => {
           if (index === i && jCell === j) itemCell.amount += 1;
@@ -20,21 +20,16 @@ export const matrixReducer = (state, action) => {
     case "DELETE_ROW":
       const { rowToDel } = action.payload;
       const matrix1 = state.MATRIX.filter((item, index) => {
-        return index !== rowToDel - 1;
+        return index !== rowToDel;
       });
       return { ...state, MATRIX: matrix1 };
 
     case "ADD_ROW":
       const { n } = action.payload;
-      const newRow = [];
-      for (let index = 0; index < n; index++) {
-        newRow[index] = genereteElement();
-      }
-      state.MATRIX.push(newRow);
-      return { ...state, MATRIX: state.MATRIX };
+      const newRow = Array.from({ length: n }, () => generateElement());
+      return { ...state, MATRIX: [...state.MATRIX, newRow] };
 
     case "CREATE_MATRIX":
-      console.log("create m");
       let matrix = genMatrix(action.payload.m, action.payload.n);
       return { ...state, MATRIX: matrix };
 
@@ -57,11 +52,12 @@ export const MatrixContextProvider = (props) => {
   }, [matrix, matrix.length]);
 
   const columnsSum = useMemo(() => {
-    return matrix.reduce((row, ind) => {
-      ind.forEach((el, i) => {
-        row[i] = (row[i] || 0) + el.amount;
+    return matrix.reduce((acc, item) => {
+      console.log("ind", item);
+      item.forEach((el, i) => {
+        acc[i] = (acc[i] || 0) + el.amount;
       });
-      return row;
+      return acc;
     }, []);
   }, [matrix]);
 

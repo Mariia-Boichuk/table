@@ -9,7 +9,6 @@ function App() {
   const { x, setx } = useContext(ClosevalsContext);
   const [m, setm] = useState(5);
   const [n, setn] = useState(3);
-  const [rowToDel, setrowToDel] = useState(2);
   return (
     <div className="App">
       <label>rows (m)</label>
@@ -25,17 +24,6 @@ function App() {
       >
         crete matrix
       </button>
-
-      <button
-        onClick={() => dispatch({ type: "DELETE_ROW", payload: { rowToDel } })}
-      >
-        delete row
-      </button>
-      <input
-        type="number"
-        onChange={(e) => setrowToDel(e.target.value)}
-        value={rowToDel}
-      />
 
       <button onClick={() => dispatch({ type: "ADD_ROW", payload: { m, n } })}>
         add row
