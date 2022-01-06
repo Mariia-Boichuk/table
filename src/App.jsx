@@ -1,5 +1,5 @@
 import "./App.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { MatrixContext } from "./context/MatrixContextProvider";
 import { Table } from "./components/Table";
 import { ClosevalsContext } from "./context/ClosevalsContextProvider";
@@ -7,7 +7,7 @@ import { ClosevalsContext } from "./context/ClosevalsContextProvider";
 function App() {
   const { n, m, setm, setn, dispatch, matrix } = useContext(MatrixContext);
   const { x, setx } = useContext(ClosevalsContext);
-
+  const [rowToDel, setrowToDel] = useState(2);
   return (
     <div className="App">
       <label>rows (m)</label>
@@ -23,6 +23,18 @@ function App() {
       >
         crete matrix
       </button>
+
+      <button
+        onClick={() => dispatch({ type: "DELETE_ROW", payload: { rowToDel } })}
+      >
+        delete row
+      </button>
+      <input
+        type="number"
+        onChange={(e) => setrowToDel(e.target.value)}
+        value={rowToDel}
+      />
+
       {matrix.length !== 0 && <Table />}
     </div>
   );

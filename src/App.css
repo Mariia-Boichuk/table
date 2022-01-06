@@ -30,3 +30,10 @@ input {
 .hilight {
   background-color: rgb(195, 231, 195);
 }
+button {
+  background-color: ghostwhite;
+  width: 90px;
+  height: 30px;
+  margin-left: 20px;
+  border: 1px solid rgb(0, 0, 0);
+}

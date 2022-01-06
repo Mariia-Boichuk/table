@@ -3,7 +3,15 @@ import { ClosevalsContext } from "../context/ClosevalsContextProvider";
 import { MatrixContext } from "../context/MatrixContextProvider";
 import { getClosestValues } from "../helpers/getClosestValues";
 
-export const TableCell = ({ val, className, i, j, mainTableCell, symbol }) => {
+export const TableCell = ({
+  val,
+  className,
+  i,
+  j,
+  mainTableCell,
+  symbol,
+  setrowHovered,
+}) => {
   const { dispatch, matrix } = useContext(MatrixContext);
   const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
   return (
@@ -16,14 +24,14 @@ export const TableCell = ({ val, className, i, j, mainTableCell, symbol }) => {
             }
           : undefined
       }
-      onMouseEnter={
-        mainTableCell
-          ? () => {
-              setCloseValues(getClosestValues(matrix, val, x, symbol));
-              console.log(closeValues);
-            }
-          : undefined
-      }
+      onMouseEnter={() => {
+        if (mainTableCell)
+          setCloseValues(getClosestValues(matrix, val, x, symbol));
+        if (className === "aside") {
+          setrowHovered(true);
+        }
+      }}
+      onMouseLeave={() => setrowHovered(false)}
     >
       {val}
     </td>
