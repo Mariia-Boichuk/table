@@ -1,3 +1,12 @@
+export const genereteElement = () => {
+  const cellValue = Math.floor(Math.random() * (999 - 100) + 100);
+
+  return {
+    id: Symbol(),
+    amount: cellValue,
+  };
+};
+
 export const genMatrix = (m, n) => {
   const result = [];
 
@@ -5,12 +14,7 @@ export const genMatrix = (m, n) => {
     result[i] = [];
 
     for (let j = 0; j < n; j++) {
-      const cellValue = Math.floor(Math.random() * (999 - 100) + 100);
-
-      result[i][j] = {
-        id: Symbol(),
-        amount: cellValue,
-      };
+      result[i][j] = genereteElement();
     }
   }
 

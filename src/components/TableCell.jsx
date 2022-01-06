@@ -31,7 +31,9 @@ export const TableCell = ({
           setrowHovered(true);
         }
       }}
-      onMouseLeave={() => setrowHovered(false)}
+      onMouseLeave={
+        className === "aside" ? () => setrowHovered(false) : undefined
+      }
     >
       {val}
     </td>

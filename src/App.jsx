@@ -5,8 +5,10 @@ import { Table } from "./components/Table";
 import { ClosevalsContext } from "./context/ClosevalsContextProvider";
 
 function App() {
-  const { n, m, setm, setn, dispatch, matrix } = useContext(MatrixContext);
+  const { dispatch, matrix } = useContext(MatrixContext);
   const { x, setx } = useContext(ClosevalsContext);
+  const [m, setm] = useState(5);
+  const [n, setn] = useState(3);
   const [rowToDel, setrowToDel] = useState(2);
   return (
     <div className="App">
@@ -35,6 +37,9 @@ function App() {
         value={rowToDel}
       />
 
+      <button onClick={() => dispatch({ type: "ADD_ROW", payload: { m, n } })}>
+        add row
+      </button>
       {matrix.length !== 0 && <Table />}
     </div>
   );

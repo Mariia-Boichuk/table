@@ -11,8 +11,8 @@ export const Table = () => {
         {matrix.map((row, i) => (
           <TableRow key={i} i={i} row={row} />
         ))}
-        {columnsSum.map((el) => (
-          <TableCell className="below" val={el} />
+        {columnsSum.map((el, i) => (
+          <TableCell className="below" i={i} val={el} />
         ))}
       </tbody>
     </table>

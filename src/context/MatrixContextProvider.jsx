@@ -1,6 +1,5 @@
-import React, { createContext, useMemo, useReducer, useState } from "react";
-import { genMatrix } from "../helpers/genMatrix";
-import { getClosestValues } from "../helpers/getClosestValues";
+import React, { createContext, useMemo, useReducer } from "react";
+import { genereteElement, genMatrix } from "../helpers/genMatrix";
 
 export const MatrixContext = createContext();
 
@@ -14,11 +13,25 @@ export const matrixReducer = (state, action) => {
           if (index === i && jCell === j) itemCell.amount += 1;
           return itemCell;
         });
-
         return item;
       });
-
       return { ...state, MATRIX: mat };
+
+    case "DELETE_ROW":
+      const { rowToDel } = action.payload;
+      const matrix1 = state.MATRIX.filter((item, index) => {
+        return index !== rowToDel - 1;
+      });
+      return { ...state, MATRIX: matrix1 };
+
+    case "ADD_ROW":
+      const { m, n } = action.payload;
+      const newRow = [];
+      for (let index = 0; index < n; index++) {
+        newRow[index] = genereteElement();
+      }
+      state.MATRIX.push(newRow);
+      return { ...state, MATRIX: [...state.MATRIX] };
 
     case "CREATE_MATRIX":
       console.log("create m");
@@ -31,11 +44,8 @@ export const matrixReducer = (state, action) => {
 };
 
 export const MatrixContextProvider = (props) => {
-  const [m, setm] = useState(5);
-  const [n, setn] = useState(3);
   const [matrixState, dispatch] = useReducer(matrixReducer, {
     MATRIX: [],
-    valuesToHightLight: [],
   });
   const matrix = matrixState.MATRIX;
   const rowsSum = useMemo(() => {
@@ -57,16 +67,12 @@ export const MatrixContextProvider = (props) => {
 
   const value = useMemo(
     () => ({
-      setm,
-      m,
-      setn,
-      n,
       rowsSum,
       columnsSum,
       matrix: matrixState.MATRIX,
       dispatch,
     }),
-    [setm, m, setn, n, rowsSum, columnsSum, matrixState, dispatch]
+    [rowsSum, columnsSum, matrixState, dispatch]
   );
 
   return (
