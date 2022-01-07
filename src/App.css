@@ -17,6 +17,11 @@ td {
   border: 2px solid darkolivegreen;
   background-color: darkseagreen;
 }
+
+td:hover {
+  outline: 3px solid black;
+  border-radius: 4px;
+}
 .below {
   background-color: lightblue;
 }
@@ -59,5 +64,4 @@ button:hover {
 
 .percentage {
   background-color: green;
-  transform: translateY(-2px);
 }

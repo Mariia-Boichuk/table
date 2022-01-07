@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import React, { useContext } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
@@ -11,15 +12,22 @@ export const Table = () => {
         {matrix.map((row, i) => (
           <TableRow key={i} i={i} row={row} />
         ))}
-        {columnsSum.map((el, i) => (
-          <TableCell
-            className="below"
-            i={i}
-            val={Math.floor(el / matrix.length)}
-            key={i}
-          />
-        ))}
+        <tr>
+          {columnsSum.map((el, i) => (
+            <TableCell
+              className="below"
+              i={i}
+              val={Math.floor(el / matrix.length)}
+              key={i}
+            />
+          ))}
+        </tr>
       </tbody>
     </table>
   );
+};
+
+Table.propTypes = {
+  matrix: propTypes.array,
+  columnsSum: propTypes.array,
 };

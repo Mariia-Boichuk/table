@@ -1,12 +1,9 @@
 export const getClosestValues = (matrix, targetCell, x = 4, symbol) => {
-  return [...matrix]
+  return matrix
     .flat()
-    .filter((item) => item.id !== symbol)
-    .map((item) => {
-      item.diff = Math.abs(item.amount - targetCell);
-      return item;
-    })
-    .sort((a, b) => a.diff - b.diff)
-    .slice(0, x)
-    .map((el) => el.id);
+    .sort(
+      (a, b) =>
+        Math.abs(a.amount - targetCell) - Math.abs(b.amount - targetCell)
+    )
+    .filter((item, index) => item.id !== symbol && index < Number(x));
 };

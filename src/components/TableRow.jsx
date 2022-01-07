@@ -10,7 +10,7 @@ export const TableRow = ({ i, row }) => {
       {row.map((col, j) => {
         return (
           <TableCell
-            className={rowHovered && "percentage"}
+            className={rowHovered ? "percentage" : undefined}
             key={j}
             val={
               rowHovered
@@ -27,7 +27,6 @@ export const TableRow = ({ i, row }) => {
       <TableCell
         className="aside"
         val={rowsSum[i]}
-        i={i}
         setRowHovered={setRowHovered}
       />
       <button

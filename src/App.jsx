@@ -8,7 +8,7 @@ function App() {
   const { dispatch, matrix } = useContext(MatrixContext);
   const { x, setx } = useContext(ClosevalsContext);
   const [m, setm] = useState(5);
-  const [n, setn] = useState(3);
+  const [n, setn] = useState(7);
   return (
     <div className="App">
       <label>rows (m)</label>

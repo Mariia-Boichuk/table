@@ -16,7 +16,9 @@ export const TableCell = ({
   const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
   return (
     <td
-      className={closeValues.includes(symbol) ? "hilight" : className}
+      className={
+        closeValues.some((item) => item.id === symbol) ? "hilight" : className
+      }
       onClick={
         mainTableCell
           ? () => {

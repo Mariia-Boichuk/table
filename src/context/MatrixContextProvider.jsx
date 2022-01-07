@@ -53,7 +53,6 @@ export const MatrixContextProvider = (props) => {
 
   const columnsSum = useMemo(() => {
     return matrix.reduce((acc, item) => {
-      console.log("ind", item);
       item.forEach((el, i) => {
         acc[i] = (acc[i] || 0) + el.amount;
       });
