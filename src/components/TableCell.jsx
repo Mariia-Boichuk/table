@@ -12,8 +12,9 @@ export const TableCell = ({
   mainTableCell,
   symbol,
   setRowHovered,
+  rowHovered,
 }) => {
-  const { dispatch, matrix } = useContext(MatrixContext);
+  const { dispatch, matrix, rowsSum } = useContext(MatrixContext);
   const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
   return (
     <td
@@ -29,7 +30,7 @@ export const TableCell = ({
       }
       onMouseEnter={() => {
         if (mainTableCell)
-          setCloseValues(getClosestValues(matrix, matrix[i][j], x, symbol));
+          setCloseValues(getClosestValues(matrix, val, x, symbol));
         if (className === "aside") {
           setRowHovered(true);
         }
@@ -39,7 +40,7 @@ export const TableCell = ({
         setCloseValues([]);
       }}
     >
-      {val}
+      {rowHovered ? Math.round((val / rowsSum[i]) * 100) + "%" : val}
     </td>
   );
 };

@@ -13,15 +13,12 @@ export const TableRow = ({ i, row }) => {
           <TableCell
             className={`main-cell ${rowHovered && "percentage"}`}
             key={j}
-            val={
-              rowHovered
-                ? Math.round((col.amount / rowsSum[i]) * 100) + "%"
-                : col.amount
-            }
+            val={col.amount}
             symbol={col.id}
             i={i}
             j={j}
             mainTableCell={true}
+            rowHovered={rowHovered}
           />
         );
       })}

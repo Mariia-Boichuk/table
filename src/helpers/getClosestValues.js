@@ -5,5 +5,5 @@ export const getClosestValues = (matrix, targetCell, x = 4, symbol) => {
       (a, b) =>
         Math.abs(a.amount - targetCell) - Math.abs(b.amount - targetCell)
     )
-    .filter((item, index) => item.id !== symbol && index < Number(x));
+    .filter((item, index) => item.id !== symbol && index <= Number(x));
 };
