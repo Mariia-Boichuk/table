@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import React, { useContext } from "react";
 import { ClosevalsContext } from "../context/ClosevalsContextProvider";
 import { MatrixContext } from "../context/MatrixContextProvider";
@@ -16,9 +17,9 @@ export const TableCell = ({
   const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
   return (
     <td
-      className={
-        closeValues.some((item) => item.id === symbol) ? "hilight" : className
-      }
+      className={`${className} ${
+        closeValues.some((item) => item.id === symbol) && "hilight"
+      } `}
       onClick={
         mainTableCell
           ? () => {
@@ -28,18 +29,27 @@ export const TableCell = ({
       }
       onMouseEnter={() => {
         if (mainTableCell)
-          setCloseValues(getClosestValues(matrix, val, x, symbol));
+          setCloseValues(getClosestValues(matrix, matrix[i][j], x, symbol));
         if (className === "aside") {
           setRowHovered(true);
         }
       }}
-      onMouseLeave={
-        className === "aside"
-          ? () => setRowHovered(false)
-          : () => setCloseValues([])
-      }
+      onMouseLeave={() => {
+        className === "aside" && setRowHovered(false);
+        setCloseValues([]);
+      }}
     >
       {val}
     </td>
   );
+};
+
+TableCell.propTypes = {
+  val: propTypes.oneOfType([propTypes.string, propTypes.number]),
+  className: propTypes.string,
+  i: propTypes.number,
+  j: propTypes.number,
+  mainTableCell: propTypes.bool,
+  symbol: propTypes.symbol,
+  setRowHovered: propTypes.func,
 };

@@ -1,3 +1,4 @@
+import propTypes from "prop-types";
 import React, { useContext, useState } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
@@ -10,7 +11,7 @@ export const TableRow = ({ i, row }) => {
       {row.map((col, j) => {
         return (
           <TableCell
-            className={rowHovered ? "percentage" : undefined}
+            className={`main-cell ${rowHovered && "percentage"}`}
             key={j}
             val={
               rowHovered
@@ -29,13 +30,20 @@ export const TableRow = ({ i, row }) => {
         val={rowsSum[i]}
         setRowHovered={setRowHovered}
       />
-      <button
-        onClick={() =>
-          dispatch({ type: "DELETE_ROW", payload: { rowToDel: i } })
-        }
-      >
-        delete row
-      </button>
+      <td className="button-cell">
+        <button
+          onClick={() =>
+            dispatch({ type: "DELETE_ROW", payload: { rowToDel: i } })
+          }
+        >
+          delete row
+        </button>
+      </td>
     </tr>
   );
+};
+
+TableRow.propTypes = {
+  i: propTypes.number,
+  row: propTypes.array,
 };
