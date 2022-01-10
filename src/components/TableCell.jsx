@@ -46,7 +46,7 @@ export const TableCell = ({
 };
 
 TableCell.propTypes = {
-  val: propTypes.oneOfType([propTypes.string, propTypes.number]),
+  val: propTypes.number,
   className: propTypes.string,
   i: propTypes.number,
   j: propTypes.number,
