@@ -1,9 +1,10 @@
 import propTypes from "prop-types";
+import react from "react";
 import React, { useContext, useState } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 
-export const TableRow = ({ i, row }) => {
+export const TableRow = react.memo(({ i, row }) => {
   const { rowsSum, dispatch } = useContext(MatrixContext);
   const [rowHovered, setRowHovered] = useState(false);
   return (
@@ -12,7 +13,7 @@ export const TableRow = ({ i, row }) => {
         return (
           <TableCell
             className={`main-cell ${rowHovered && "percentage"}`}
-            key={j}
+            key={`${i}${j}`}
             val={col.amount}
             symbol={col.id}
             i={i}
@@ -38,7 +39,7 @@ export const TableRow = ({ i, row }) => {
       </td>
     </tr>
   );
-};
+});
 
 TableRow.propTypes = {
   i: propTypes.number,
