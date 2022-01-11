@@ -4,6 +4,13 @@ import React, { useContext, useState } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.row.every((item, index) => {
+    //  console.log("hhok", item.amount, nextProps.row[index].amount);
+    return item.amount === nextProps.row[index].amount;
+  });
+};
+
 export const TableRow = react.memo(({ i, row }) => {
   const { rowsSum, dispatch } = useContext(MatrixContext);
   const [rowHovered, setRowHovered] = useState(false);
@@ -39,7 +46,7 @@ export const TableRow = react.memo(({ i, row }) => {
       </td>
     </tr>
   );
-});
+}, areEqual);
 
 TableRow.propTypes = {
   i: propTypes.number,

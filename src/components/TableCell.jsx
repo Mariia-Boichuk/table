@@ -5,6 +5,13 @@ import { ClosevalsContext } from "../context/ClosevalsContextProvider";
 import { MatrixContext } from "../context/MatrixContextProvider";
 import { getClosestValues } from "../helpers/getClosestValues";
 
+const areEqual = (prevProps, nextProps) => {
+  return (
+    prevProps.className === nextProps.className &&
+    prevProps.val === nextProps.val
+  );
+};
+
 export const TableCell = react.memo(
   ({
     val,
@@ -45,7 +52,8 @@ export const TableCell = react.memo(
         {rowHovered ? Math.round((val / rowsSum[i]) * 100) + "%" : val}
       </td>
     );
-  }
+  },
+  areEqual
 );
 
 TableCell.propTypes = {
