@@ -3,14 +3,12 @@ import React, { useContext, useState } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 import { TableRow } from "./TableRow.jsx";
-import { ClosevalsContext } from "../context/ClosevalsContextProvider";
 import { getClosestValues } from "../helpers/getClosestValues";
 
-export const Table = () => {
-  const { setCloseValues, x } = useContext(ClosevalsContext);
+export const Table = ({ x }) => {
   const { matrix, columnsSum, dispatch } = useContext(MatrixContext);
   const [rowHovered, setRowHovered] = useState(null);
-
+  const [closeValues, setCloseValues] = useState([]);
   const handleClick = (e) => {
     if (e.target.classList.contains("main-cell")) {
       dispatch({
@@ -25,10 +23,11 @@ export const Table = () => {
 
   const handleHover = (e) => {
     const cellValue = e.target.innerText;
-    const symbol = e.target.dataset.symbol;
-
-    if (e.target.classList.contains("main-cell"))
-      setCloseValues(getClosestValues(matrix, cellValue, x, symbol));
+    const ident = e.target.dataset.ident;
+    if (e.target.classList.contains("main-cell")) {
+      const cv = getClosestValues(matrix, cellValue, x, ident);
+      setCloseValues(cv);
+    }
     if (e.target.classList.contains("aside")) {
       setRowHovered(+e.target.dataset.rowindex);
     }
@@ -48,7 +47,13 @@ export const Table = () => {
     >
       <tbody>
         {matrix.map((row, i) => (
-          <TableRow key={i} i={i} row={row} rowHovered={rowHovered} />
+          <TableRow
+            key={i}
+            i={i}
+            row={row}
+            rowHovered={rowHovered}
+            closeValues={closeValues}
+          />
         ))}
         <tr>
           {columnsSum.map((el, i) => (

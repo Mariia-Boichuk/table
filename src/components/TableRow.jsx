@@ -6,6 +6,7 @@ import { TableCell } from "./TableCell.jsx";
 
 const areEqual = (prevProps, nextProps) => {
   return (
+    prevProps.closeValues === nextProps.closeValues &&
     prevProps.rowHovered === nextProps.rowHovered &&
     prevProps.row.every((item, index) => {
       return item.amount === nextProps.row[index].amount;
@@ -13,9 +14,8 @@ const areEqual = (prevProps, nextProps) => {
   );
 };
 
-export const TableRow = react.memo(({ i, row, rowHovered }) => {
+export const TableRow = react.memo(({ i, row, rowHovered, closeValues }) => {
   const { rowsSum, dispatch } = useContext(MatrixContext);
-
   return (
     <tr key={i}>
       {row.map((col, j) => {
@@ -24,11 +24,12 @@ export const TableRow = react.memo(({ i, row, rowHovered }) => {
             className="main-cell"
             key={col.id}
             val={col.amount}
-            symbol={col.id}
+            ident={col.id}
             rowIndex={i}
             columnIndex={j}
             mainTableCell={true}
             rowHovered={rowHovered}
+            closeValues={closeValues}
           />
         );
       })}

@@ -2,13 +2,13 @@ import "./App.css";
 import { useContext, useState } from "react";
 import { MatrixContext } from "./context/MatrixContextProvider";
 import { Table } from "./components/Table";
-import { ClosevalsContext } from "./context/ClosevalsContextProvider";
 
 function App() {
   const { dispatch, matrix } = useContext(MatrixContext);
-  const { x, setx } = useContext(ClosevalsContext);
+
   const [m, setm] = useState(5);
   const [n, setn] = useState(7);
+  const [x, setx] = useState(8);
   return (
     <div className="App">
       <label>rows (m)</label>
@@ -28,7 +28,7 @@ function App() {
       <button onClick={() => dispatch({ type: "ADD_ROW", payload: { m, n } })}>
         add row
       </button>
-      {matrix.length !== 0 && <Table />}
+      {matrix.length !== 0 && <Table x={x} />}
     </div>
   );
 }

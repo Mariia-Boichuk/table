@@ -1,8 +1,10 @@
+import { v4 as uuidv4 } from "uuid";
+
 export const generateElement = () => {
   const cellValue = Math.floor(Math.random() * (999 - 100) + 100);
 
   return {
-    id: Math.floor(Math.random() * (3009 - 100) + 100),
+    id: uuidv4(),
     amount: cellValue,
   };
 };
