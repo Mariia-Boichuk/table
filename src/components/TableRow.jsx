@@ -5,14 +5,16 @@ import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 
 const areEqual = (prevProps, nextProps) => {
-  return prevProps.row.every((item, index) => {
-    return item.amount === nextProps.row[index].amount;
-  });
+  // return prevProps.row.every((item, index) => {
+  //   return item.amount === nextProps.row[index].amount;
+  // });
+  return false;
 };
 
-export const TableRow = react.memo(({ i, row }) => {
+export const TableRow = react.memo(({ i, row, rowHovered }) => {
   const { rowsSum, dispatch } = useContext(MatrixContext);
-  const [rowHovered, setRowHovered] = useState(false);
+  console.log("tablerow", rowHovered);
+
   return (
     <tr key={i}>
       {row.map((col, j) => {
@@ -29,11 +31,7 @@ export const TableRow = react.memo(({ i, row }) => {
           />
         );
       })}
-      <TableCell
-        className="aside"
-        val={rowsSum[i]}
-        setRowHovered={setRowHovered}
-      />
+      <TableCell className="aside" val={rowsSum[i]} rowIndex={i} />
       <td className="button-cell">
         <button
           onClick={() =>

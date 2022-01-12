@@ -8,7 +8,6 @@ export const matrixReducer = (state, action) => {
 
   switch (action.type) {
     case "INCREMENT_CELL":
-      console.log(i, j, "hhh");
       const mat = state.MATRIX.map((item, index) => {
         item.map((itemCell, jCell) => {
           if (index === i && jCell === j) itemCell.amount += 1;

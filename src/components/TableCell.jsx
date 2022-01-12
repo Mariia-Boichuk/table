@@ -6,10 +6,11 @@ import { MatrixContext } from "../context/MatrixContextProvider";
 import { getClosestValues } from "../helpers/getClosestValues";
 
 const areEqual = (prevProps, nextProps) => {
-  return (
-    prevProps.val === nextProps.val &&
-    prevProps.rowHovered === nextProps.rowHovered
-  );
+  return false;
+  // (
+  //   prevProps.val === nextProps.val &&
+  //   prevProps.rowHovered === nextProps.rowHovered
+  // );
 };
 
 export const TableCell = react.memo(
@@ -25,13 +26,18 @@ export const TableCell = react.memo(
   }) => {
     const { dispatch, matrix, rowsSum } = useContext(MatrixContext);
     const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
+    console.log("jj", rowHovered, rowIndex);
     return (
       <td
         data-columnindex={columnIndex}
         data-rowindex={rowIndex}
         data-symbol={symbol}
         className={`${className}
-         ${rowHovered ? "percentage" : ""} 
+         ${
+           rowHovered === rowIndex && className === "main-cell"
+             ? "percentage"
+             : ""
+         } 
          ${closeValues.some((item) => item.id === symbol) ? "hilight" : ""} `}
         // onMouseEnter={() => {
         //   if (mainTableCell)
@@ -40,12 +46,14 @@ export const TableCell = react.memo(
         //     setRowHovered(true);
         //   }
         // }}
-        onMouseLeave={() => {
-          className === "aside" && setRowHovered(false);
-          setCloseValues([]);
-        }}
+        // onMouseLeave={() => {
+        //   className === "aside" && setRowHovered(false);
+        //   setCloseValues([]);
+        // }}
       >
-        {rowHovered ? Math.round((val / rowsSum[rowIndex]) * 100) + "%" : val}
+        {rowHovered === rowIndex && className === "main-cell"
+          ? Math.round((val / rowsSum[rowIndex]) * 100) + "%"
+          : val}
       </td>
     );
   },
@@ -58,6 +66,6 @@ TableCell.propTypes = {
   i: propTypes.number,
   j: propTypes.number,
   mainTableCell: propTypes.bool,
-  symbol: propTypes.symbol,
+  symbol: propTypes.number,
   setRowHovered: propTypes.func,
 };
