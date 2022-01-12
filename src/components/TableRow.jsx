@@ -22,7 +22,7 @@ export const TableRow = react.memo(({ i, row, rowHovered }) => {
         return (
           <TableCell
             className="main-cell"
-            key={`${i}${j}`}
+            key={col.id}
             val={col.amount}
             symbol={col.id}
             rowIndex={i}
