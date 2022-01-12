@@ -7,10 +7,10 @@ import { ClosevalsContext } from "../context/ClosevalsContextProvider";
 import { getClosestValues } from "../helpers/getClosestValues";
 
 export const Table = () => {
-  const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
+  const { setCloseValues, x } = useContext(ClosevalsContext);
   const { matrix, columnsSum, dispatch } = useContext(MatrixContext);
   const [rowHovered, setRowHovered] = useState(null);
-  console.log("rowhoverincell", rowHovered);
+
   const handleClick = (e) => {
     if (e.target.classList.contains("main-cell")) {
       dispatch({
@@ -26,17 +26,26 @@ export const Table = () => {
   const handleHover = (e) => {
     const cellValue = e.target.innerText;
     const symbol = e.target.dataset.symbol;
-    //console.log(symbol, cellValue, e);
 
     if (e.target.classList.contains("main-cell"))
       setCloseValues(getClosestValues(matrix, cellValue, x, symbol));
     if (e.target.classList.contains("aside")) {
-      console.log("kdscmL", +e.target.dataset.rowindex);
       setRowHovered(+e.target.dataset.rowindex);
     }
   };
+
+  const handleMouseLeave = (e) => {
+    if (e.target.classList.contains("aside")) setRowHovered(false);
+    setCloseValues([]);
+  };
+
   return (
-    <table className="wrapper" onClick={handleClick} onMouseOver={handleHover}>
+    <table
+      className="wrapper"
+      onClick={handleClick}
+      onMouseOver={handleHover}
+      onMouseOut={handleMouseLeave}
+    >
       <tbody>
         {matrix.map((row, i) => (
           <TableRow key={i} i={i} row={row} rowHovered={rowHovered} />

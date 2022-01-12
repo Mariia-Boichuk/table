@@ -1,19 +1,20 @@
 import propTypes from "prop-types";
 import react from "react";
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 
 const areEqual = (prevProps, nextProps) => {
-  // return prevProps.row.every((item, index) => {
-  //   return item.amount === nextProps.row[index].amount;
-  // });
-  return false;
+  return (
+    prevProps.rowHovered === nextProps.rowHovered &&
+    prevProps.row.every((item, index) => {
+      return item.amount === nextProps.row[index].amount;
+    })
+  );
 };
 
 export const TableRow = react.memo(({ i, row, rowHovered }) => {
   const { rowsSum, dispatch } = useContext(MatrixContext);
-  console.log("tablerow", rowHovered);
 
   return (
     <tr key={i}>

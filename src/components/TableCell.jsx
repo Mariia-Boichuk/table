@@ -3,30 +3,19 @@ import react from "react";
 import React, { useContext } from "react";
 import { ClosevalsContext } from "../context/ClosevalsContextProvider";
 import { MatrixContext } from "../context/MatrixContextProvider";
-import { getClosestValues } from "../helpers/getClosestValues";
 
 const areEqual = (prevProps, nextProps) => {
-  return false;
-  // (
-  //   prevProps.val === nextProps.val &&
-  //   prevProps.rowHovered === nextProps.rowHovered
-  // );
+  return (
+    prevProps.val === nextProps.val &&
+    prevProps.rowHovered === nextProps.rowHovered
+  );
 };
 
 export const TableCell = react.memo(
-  ({
-    val,
-    className,
-    rowIndex,
-    columnIndex,
-    mainTableCell,
-    symbol,
-    setRowHovered,
-    rowHovered,
-  }) => {
-    const { dispatch, matrix, rowsSum } = useContext(MatrixContext);
-    const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
-    console.log("jj", rowHovered, rowIndex);
+  ({ val, className, rowIndex, columnIndex, symbol, rowHovered }) => {
+    const { rowsSum } = useContext(MatrixContext);
+    const { closeValues } = useContext(ClosevalsContext);
+
     return (
       <td
         data-columnindex={columnIndex}
@@ -39,17 +28,6 @@ export const TableCell = react.memo(
              : ""
          } 
          ${closeValues.some((item) => item.id === symbol) ? "hilight" : ""} `}
-        // onMouseEnter={() => {
-        //   if (mainTableCell)
-        //     setCloseValues(getClosestValues(matrix, val, x, symbol));
-        //   if (className === "aside") {
-        //     setRowHovered(true);
-        //   }
-        // }}
-        // onMouseLeave={() => {
-        //   className === "aside" && setRowHovered(false);
-        //   setCloseValues([]);
-        // }}
       >
         {rowHovered === rowIndex && className === "main-cell"
           ? Math.round((val / rowsSum[rowIndex]) * 100) + "%"

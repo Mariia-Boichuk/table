@@ -2,7 +2,7 @@ export const generateElement = () => {
   const cellValue = Math.floor(Math.random() * (999 - 100) + 100);
 
   return {
-    id: Math.floor(Math.random() * (30099555 - 100) + 100),
+    id: Math.floor(Math.random() * (3009 - 100) + 100),
     amount: cellValue,
   };
 };
