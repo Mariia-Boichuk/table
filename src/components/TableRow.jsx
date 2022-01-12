@@ -6,7 +6,6 @@ import { TableCell } from "./TableCell.jsx";
 
 const areEqual = (prevProps, nextProps) => {
   return prevProps.row.every((item, index) => {
-    //  console.log("hhok", item.amount, nextProps.row[index].amount);
     return item.amount === nextProps.row[index].amount;
   });
 };
@@ -19,12 +18,12 @@ export const TableRow = react.memo(({ i, row }) => {
       {row.map((col, j) => {
         return (
           <TableCell
-            className={`main-cell ${rowHovered && "percentage"}`}
+            className="main-cell"
             key={`${i}${j}`}
             val={col.amount}
             symbol={col.id}
-            i={i}
-            j={j}
+            rowIndex={i}
+            columnIndex={j}
             mainTableCell={true}
             rowHovered={rowHovered}
           />

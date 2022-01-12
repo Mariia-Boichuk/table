@@ -7,8 +7,8 @@ import { getClosestValues } from "../helpers/getClosestValues";
 
 const areEqual = (prevProps, nextProps) => {
   return (
-    prevProps.className === nextProps.className &&
-    prevProps.val === nextProps.val
+    prevProps.val === nextProps.val &&
+    prevProps.rowHovered === nextProps.rowHovered
   );
 };
 
@@ -16,8 +16,8 @@ export const TableCell = react.memo(
   ({
     val,
     className,
-    i,
-    j,
+    rowIndex,
+    columnIndex,
     mainTableCell,
     symbol,
     setRowHovered,
@@ -27,29 +27,25 @@ export const TableCell = react.memo(
     const { closeValues, setCloseValues, x } = useContext(ClosevalsContext);
     return (
       <td
-        className={`${className} ${
-          closeValues.some((item) => item.id === symbol) && "hilight"
-        } `}
-        onClick={
-          mainTableCell
-            ? () => {
-                dispatch({ type: "INCREMENT_CELL", payload: { i, j } });
-              }
-            : undefined
-        }
-        onMouseEnter={() => {
-          if (mainTableCell)
-            setCloseValues(getClosestValues(matrix, val, x, symbol));
-          if (className === "aside") {
-            setRowHovered(true);
-          }
-        }}
+        data-columnindex={columnIndex}
+        data-rowindex={rowIndex}
+        data-symbol={symbol}
+        className={`${className}
+         ${rowHovered ? "percentage" : ""} 
+         ${closeValues.some((item) => item.id === symbol) ? "hilight" : ""} `}
+        // onMouseEnter={() => {
+        //   if (mainTableCell)
+        //     setCloseValues(getClosestValues(matrix, val, x, symbol));
+        //   if (className === "aside") {
+        //     setRowHovered(true);
+        //   }
+        // }}
         onMouseLeave={() => {
           className === "aside" && setRowHovered(false);
           setCloseValues([]);
         }}
       >
-        {rowHovered ? Math.round((val / rowsSum[i]) * 100) + "%" : val}
+        {rowHovered ? Math.round((val / rowsSum[rowIndex]) * 100) + "%" : val}
       </td>
     );
   },
