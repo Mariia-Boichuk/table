@@ -6,9 +6,9 @@ import { Table } from "./components/Table";
 function App() {
   const { dispatch, matrix } = useContext(MatrixContext);
 
-  const [m, setm] = useState(5);
-  const [n, setn] = useState(7);
-  const [x, setx] = useState(8);
+  const [m, setm] = useState(100);
+  const [n, setn] = useState(100);
+  const [x, setx] = useState(800);
   return (
     <div className="App">
       <label>rows (m)</label>

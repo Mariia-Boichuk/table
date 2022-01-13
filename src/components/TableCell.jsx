@@ -5,7 +5,7 @@ import { MatrixContext } from "../context/MatrixContextProvider";
 
 const areEqual = (prevProps, nextProps) => {
   return (
-    prevProps.closeValues === nextProps.closeValues &&
+    nextProps.highlightCell === prevProps.highlightCell &&
     prevProps.val === nextProps.val &&
     prevProps.rowHovered === nextProps.rowHovered
   );
@@ -19,10 +19,10 @@ export const TableCell = react.memo(
     columnIndex,
     ident,
     rowHovered,
-    closeValues,
+    highlightCell,
   }) => {
     const { rowsSum } = useContext(MatrixContext);
-
+    //  console.log("cell", rowIndex, " ", columnIndex);
     return (
       <td
         data-columnindex={columnIndex}
@@ -34,7 +34,7 @@ export const TableCell = react.memo(
              ? "percentage"
              : ""
          } 
-         ${closeValues?.some((item) => item.id === ident) ? "hilight" : ""} `}
+         ${highlightCell ? "hilight" : ""} `}
       >
         {rowHovered === rowIndex && className === "main-cell"
           ? Math.round((val / rowsSum[rowIndex]) * 100) + "%"
@@ -48,9 +48,9 @@ export const TableCell = react.memo(
 TableCell.propTypes = {
   val: propTypes.number,
   className: propTypes.string,
-  i: propTypes.number,
-  j: propTypes.number,
-  mainTableCell: propTypes.bool,
+  rowIndex: propTypes.number,
+  columnIndex: propTypes.number,
   id: propTypes.string,
-  setRowHovered: propTypes.func,
+  rowHovered: propTypes.number,
+  highlightCell: propTypes.bool,
 };

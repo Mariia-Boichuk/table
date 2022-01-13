@@ -7,7 +7,7 @@ import { getClosestValues } from "../helpers/getClosestValues";
 
 export const Table = ({ x }) => {
   const { matrix, columnsSum, dispatch } = useContext(MatrixContext);
-  const [rowHovered, setRowHovered] = useState(null);
+  const [rowHovered, setRowHovered] = useState(-1);
   const [closeValues, setCloseValues] = useState([]);
   const handleClick = (e) => {
     if (e.target.classList.contains("main-cell")) {
@@ -30,11 +30,15 @@ export const Table = ({ x }) => {
     }
     if (e.target.classList.contains("aside")) {
       setRowHovered(+e.target.dataset.rowindex);
+      setCloseValues([]);
     }
   };
 
+  const handleMouseOut = (e) => {
+    if (e.target.classList.contains("aside")) setRowHovered(-1);
+  };
+
   const handleMouseLeave = (e) => {
-    if (e.target.classList.contains("aside")) setRowHovered(false);
     setCloseValues([]);
   };
 
@@ -43,12 +47,13 @@ export const Table = ({ x }) => {
       className="wrapper"
       onClick={handleClick}
       onMouseOver={handleHover}
-      onMouseOut={handleMouseLeave}
+      onMouseOut={handleMouseOut}
+      onMouseLeave={handleMouseLeave}
     >
       <tbody>
         {matrix.map((row, i) => (
           <TableRow
-            key={i}
+            key={row[0].id + row[1].id}
             i={i}
             row={row}
             rowHovered={rowHovered}
