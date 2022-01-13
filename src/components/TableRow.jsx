@@ -10,7 +10,7 @@ const areEqual = (prevProps, nextProps) => {
       return item.id === col.id;
     });
   });
-  //  console.log("jj", mas);
+
   return (
     !mas &&
     prevProps.rowHovered === nextProps.rowHovered &&
