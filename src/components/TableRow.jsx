@@ -11,13 +11,7 @@ const areEqual = (prevProps, nextProps) => {
     });
   });
 
-  return (
-    !mas &&
-    prevProps.rowHovered === nextProps.rowHovered &&
-    prevProps.row.every((item, index) => {
-      return item.amount === nextProps.row[index].amount;
-    })
-  );
+  return !mas && prevProps.rowHovered === nextProps.rowHovered;
 };
 
 export const TableRow = react.memo(({ i, row, rowHovered, closeValues }) => {
