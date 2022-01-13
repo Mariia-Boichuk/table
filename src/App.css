@@ -6,14 +6,14 @@
 
 .App {
   text-align: center;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
 }
 table {
   margin: 60px auto;
 }
 .main-cell {
-  padding: 15px;
+  padding: 8px;
   border: 2px solid darkolivegreen;
   background-color: darkseagreen;
 }
