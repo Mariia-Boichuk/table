@@ -6,15 +6,25 @@ import { TableCell } from "./TableCell.jsx";
 
 const areEqual = (prevProps, nextProps) => {
   const mas = nextProps.row.some((col, j) => {
-    return nextProps.closeValues.some((item) => {
+    return nextProps.closeValues?.some((item) => {
       return item.id === col.id;
     });
   });
-
-  return !mas && prevProps.rowHovered === nextProps.rowHovered;
+  const mas1 = prevProps.row.some((col, j) => {
+    return prevProps.closeValues?.some((item) => {
+      return item.id === col.id;
+    });
+  });
+  return (
+    !mas &&
+    !mas1 &&
+    prevProps.rowHovered !== prevProps.i &&
+    nextProps.rowHovered !== nextProps.i
+  );
 };
 
 export const TableRow = react.memo(({ i, row, rowHovered, closeValues }) => {
+  // console.log("row " + i);
   const { rowsSum, dispatch } = useContext(MatrixContext);
   return (
     <tr key={i}>
