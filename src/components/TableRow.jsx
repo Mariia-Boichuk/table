@@ -10,14 +10,8 @@ const areEqual = (prevProps, nextProps) => {
       return item.id === col.id;
     });
   });
-  //  console.log("jj", mas);
-  return (
-    !mas &&
-    prevProps.rowHovered === nextProps.rowHovered &&
-    prevProps.row.every((item, index) => {
-      return item.amount === nextProps.row[index].amount;
-    })
-  );
+
+  return !mas && prevProps.rowHovered === nextProps.rowHovered;
 };
 
 export const TableRow = react.memo(({ i, row, rowHovered, closeValues }) => {
