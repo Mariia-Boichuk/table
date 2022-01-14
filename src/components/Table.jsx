@@ -53,7 +53,7 @@ export const Table = ({ x }) => {
       <tbody>
         {matrix.map((row, i) => (
           <TableRow
-            key={row[0].id + row[1].id}
+            key={row[0].idForRow}
             i={i}
             row={row}
             rowHovered={rowHovered}
