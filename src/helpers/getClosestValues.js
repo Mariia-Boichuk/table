@@ -1,4 +1,4 @@
-export const getClosestValues = (matrix, targetCell, x = 20000, id) => {
+export const getClosestValues = (matrix, targetCell, x = 1, id) => {
   const vals = matrix
     .flat()
     .sort(

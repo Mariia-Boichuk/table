@@ -22,7 +22,7 @@ export const TableCell = react.memo(
     highlightCell,
   }) => {
     const { rowsSum } = useContext(MatrixContext);
-    //  console.log("cell", rowIndex, " ", columnIndex);
+    //console.log("cell", rowIndex, " ", columnIndex);
     return (
       <td
         data-columnindex={columnIndex}

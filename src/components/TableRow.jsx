@@ -5,16 +5,27 @@ import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.jsx";
 
 const areEqual = (prevProps, nextProps) => {
-  const mas = nextProps.row.some((col, j) => {
-    return nextProps.closeValues.some((item) => {
+  const next = nextProps.row.some((col, j) => {
+    return nextProps.closeValues?.some((item) => {
       return item.id === col.id;
     });
   });
-
-  return !mas && prevProps.rowHovered === nextProps.rowHovered;
+  const prev = prevProps.row.some((col, j) => {
+    return prevProps.closeValues?.some((item) => {
+      return item.id === col.id;
+    });
+  });
+  return (
+    !next &&
+    !prev &&
+    prevProps.rowHovered !== prevProps.i &&
+    nextProps.rowHovered !== nextProps.i &&
+    prevProps.i === nextProps.i
+  );
 };
 
 export const TableRow = react.memo(({ i, row, rowHovered, closeValues }) => {
+  //console.log("row " + i);
   const { rowsSum, dispatch } = useContext(MatrixContext);
   return (
     <tr key={i}>
