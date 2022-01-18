@@ -6,7 +6,7 @@ import { TableRow } from "./TableRow.jsx";
 import { getClosestValues } from "../helpers/getClosestValues";
 
 export const Table = ({ x }) => {
-  const { matrix, columnsSum, dispatch } = useContext(MatrixContext);
+  const { matrix, columnsSum, dispatch, rowsSum } = useContext(MatrixContext);
   const [rowHovered, setRowHovered] = useState(-1);
   const [closeValues, setCloseValues] = useState([]);
   const handleClick = (e) => {
@@ -53,11 +53,13 @@ export const Table = ({ x }) => {
       <tbody>
         {matrix.map((row, i) => (
           <TableRow
-            key={row[0].id + row[1].id}
+            key={row[0].idForRow}
             i={i}
             row={row}
             rowHovered={rowHovered}
             closeValues={closeValues}
+            rowsSum={rowsSum}
+            dispatch={dispatch}
           />
         ))}
         <tr>

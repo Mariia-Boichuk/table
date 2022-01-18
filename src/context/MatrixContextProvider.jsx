@@ -31,6 +31,7 @@ export const matrixReducer = (state, action) => {
 
     case "CREATE_MATRIX":
       let matrix = genMatrix(action.payload.m, action.payload.n);
+      //console.log(matrix);
       return { ...state, MATRIX: matrix };
 
     default:

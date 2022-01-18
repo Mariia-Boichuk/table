@@ -1,7 +1,6 @@
 import propTypes from "prop-types";
 import react from "react";
 import React, { useContext } from "react";
-import { MatrixContext } from "../context/MatrixContextProvider";
 
 const areEqual = (prevProps, nextProps) => {
   return (
@@ -20,8 +19,8 @@ export const TableCell = react.memo(
     ident,
     rowHovered,
     highlightCell,
+    rowsSum,
   }) => {
-    const { rowsSum } = useContext(MatrixContext);
     //console.log("cell", rowIndex, " ", columnIndex);
     return (
       <td
