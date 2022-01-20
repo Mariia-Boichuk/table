@@ -20,6 +20,7 @@ export const TableCell = react.memo(
     rowHovered,
     highlightCell,
     rowsSum,
+    valuePercent,
   }) => {
     //console.log("cell", rowIndex, " ", columnIndex);
     return (
@@ -36,7 +37,7 @@ export const TableCell = react.memo(
          ${highlightCell ? "hilight" : ""} `}
       >
         {rowHovered === rowIndex && className === "main-cell"
-          ? Math.round((val / rowsSum[rowIndex]) * 100) + "%"
+          ? valuePercent
           : val}
       </td>
     );
