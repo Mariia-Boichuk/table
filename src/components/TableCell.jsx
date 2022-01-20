@@ -1,6 +1,5 @@
 import propTypes from "prop-types";
 import react from "react";
-import React, { useContext } from "react";
 
 const areEqual = (prevProps, nextProps) => {
   return (
@@ -19,7 +18,6 @@ export const TableCell = react.memo(
     ident,
     rowHovered,
     highlightCell,
-    rowsSum,
     valuePercent,
   }) => {
     //console.log("cell", rowIndex, " ", columnIndex);
