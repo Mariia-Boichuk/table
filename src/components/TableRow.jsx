@@ -42,6 +42,7 @@ export const TableRow = react.memo(
               columnIndex={j}
               rowHovered={rowHovered}
               closeValues={closeValues}
+              valuePercent={Math.round((col.amount / rowsSum[i]) * 100) + "%"}
             />
           );
         })}
