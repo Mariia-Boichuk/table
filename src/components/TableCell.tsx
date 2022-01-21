@@ -1,5 +1,6 @@
 import propTypes from "prop-types";
 import react from "react";
+import { ICell } from "../interfaces";
 
 const areEqual = (prevProps, nextProps) => {
   return (
@@ -9,7 +10,7 @@ const areEqual = (prevProps, nextProps) => {
   );
 };
 
-export const TableCell = react.memo(
+export const TableCell:react.FC<ICell> = react.memo(
   ({
     val,
     className,
@@ -43,12 +44,12 @@ export const TableCell = react.memo(
   areEqual
 );
 
-TableCell.propTypes = {
-  val: propTypes.number,
-  className: propTypes.string,
-  rowIndex: propTypes.number,
-  columnIndex: propTypes.number,
-  id: propTypes.string,
-  rowHovered: propTypes.number,
-  highlightCell: propTypes.bool,
-};
+// TableCell.propTypes = {
+//   val: propTypes.number,
+//   className: propTypes.string,
+//   rowIndex: propTypes.number,
+//   columnIndex: propTypes.number,
+//   id: propTypes.string,
+//   rowHovered: propTypes.number,
+//   highlightCell: propTypes.bool,
+// };

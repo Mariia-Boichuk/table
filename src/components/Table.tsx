@@ -1,8 +1,8 @@
 import propTypes from "prop-types";
 import React, { useContext, useState } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
-import { TableCell } from "./TableCell.jsx";
-import { TableRow } from "./TableRow.jsx";
+import { TableCell } from "./TableCell";
+import { TableRow } from "./TableRow";
 import { getClosestValues } from "../helpers/getClosestValues";
 
 export const Table = ({ x }) => {

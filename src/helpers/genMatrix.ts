@@ -10,7 +10,7 @@ export const generateElement = () => {
   };
 };
 
-export const genMatrix = (m, n) => {
+export const genMatrix = (m:number, n:number):[][] => {
   const result = [];
 
   for (let i = 0; i < m; i++) {

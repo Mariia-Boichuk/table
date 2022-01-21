@@ -1,18 +1,18 @@
 import "./App.css";
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { MatrixContext } from "./context/MatrixContextProvider";
 import { Table } from "./components/Table";
 
-function App() {
+const App:React.FC=()=> {
   const { dispatch, matrix } = useContext(MatrixContext);
 
-  const [m, setm] = useState(100);
-  const [n, setn] = useState(100);
-  const [x, setx] = useState(800);
+  const [m, setm] = useState<string|number>(100);
+  const [n, setn] = useState<string|number>(100);
+  const [x, setx] = useState<string|number>(800);
   return (
     <div className="App">
       <label>rows (m)</label>
-      <input type="number" onChange={(e) => setm(e.target.value)} value={m} />
+      <input type="number" onChange={(e:React.ChangeEvent<HTMLInputElement>) => setm(e.target.value)} value={m} />
 
       <label>columns (n)</label>
       <input type="number" onChange={(e) => setn(e.target.value)} value={n} />

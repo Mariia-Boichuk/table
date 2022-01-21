@@ -1,6 +1,7 @@
 import propTypes from "prop-types";
 import react from "react";
-import { TableCell } from "./TableCell.jsx";
+import { RowProps } from "../interfaces.js";
+import { TableCell } from "./TableCell";
 
 const areEqual = (prevProps, nextProps) => {
   const next = nextProps.row.some((col, j) => {
@@ -22,7 +23,7 @@ const areEqual = (prevProps, nextProps) => {
   );
 };
 
-export const TableRow = react.memo(
+export const TableRow:React.FC<RowProps>= react.memo(
   ({ i, row, rowHovered, closeValues, dispatch, rowsSum }) => {
     //console.log("row " + i);
     return (
@@ -30,10 +31,10 @@ export const TableRow = react.memo(
         {row.map((col, j) => {
           return (
             <TableCell
-              rowsSum={rowsSum}
+            val={col.amount}
               className="main-cell"
               key={col.id}
-              val={col.amount}
+          
               ident={col.id}
               highlightCell={closeValues?.some((item) => {
                 return item.id === col.id;
@@ -62,9 +63,9 @@ export const TableRow = react.memo(
   areEqual
 );
 
-TableRow.propTypes = {
-  i: propTypes.number,
-  row: propTypes.array,
-  closeValues: propTypes.array,
-  rowHovered: propTypes.number,
-};
+// TableRow.propTypes = {
+//   i: propTypes.number,
+//   row: propTypes.array,
+//   closeValues: propTypes.array,
+//   rowHovered: propTypes.number,
+// };

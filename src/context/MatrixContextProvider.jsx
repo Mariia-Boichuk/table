@@ -1,5 +1,5 @@
 import React, { createContext, useMemo, useReducer } from "react";
-import { generateElement, genMatrix } from "../helpers/genMatrix";
+import { generateElement, genMatrix } from "../helpers/genMatrix.ts";
 
 export const MatrixContext = createContext();
 
