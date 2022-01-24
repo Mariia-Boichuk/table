@@ -1,14 +1,14 @@
-export const getClosestValues = (matrix, targetCell, x = 1, id) => {
-  const vals = matrix
-    .flat()
+export const getClosestValues = ({
+  matrix,
+  targetCell,
+  numberOfValues,
+  id,
+}) => {
+  return matrix
+    .reduce((newArray, item) => newArray.concat(item.row), [])
     .sort(
       (a, b) =>
         Math.abs(a.amount - targetCell) - Math.abs(b.amount - targetCell)
     )
-    .filter((item, index) => {
-      //  console.log(id, item.id);
-      return item.id !== id && index <= +x;
-    });
-
-  return vals;
+    .filter((item, index) => item.id !== id && index <= numberOfValues);
 };

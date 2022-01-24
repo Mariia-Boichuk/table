@@ -13,20 +13,23 @@ const areEqual = (prevProps, nextProps) => {
       return item.id === col.id;
     });
   });
+
   return (
     !next &&
     !prev &&
-    prevProps.rowHovered !== prevProps.i &&
-    nextProps.rowHovered !== nextProps.i &&
-    prevProps.i === nextProps.i
+    prevProps.rowIndex !== prevProps.rowHovered &&
+    nextProps.rowIndex !== nextProps.rowHovered &&
+    prevProps.rowIndex === nextProps.rowIndex &&
+    prevProps.row.map((el) => el.amount).toString() ===
+      nextProps.row.map((el) => el.amount).toString()
   );
 };
 
 export const TableRow = react.memo(
-  ({ i, row, rowHovered, closeValues, dispatch, rowsSum }) => {
-    //console.log("row " + i);
+  ({ rowIndex, row, rowHovered, closeValues, dispatch, rowsSum }) => {
+    // console.log("row   ", rowIndex);
     return (
-      <tr key={i}>
+      <tr>
         {row.map((col, j) => {
           return (
             <TableCell
@@ -38,19 +41,25 @@ export const TableRow = react.memo(
               highlightCell={closeValues?.some((item) => {
                 return item.id === col.id;
               })}
-              rowIndex={i}
+              rowIndex={rowIndex}
               columnIndex={j}
               rowHovered={rowHovered}
               closeValues={closeValues}
-              valuePercent={Math.round((col.amount / rowsSum[i]) * 100) + "%"}
+              valuePercent={
+                Math.round((col.amount / rowsSum[rowIndex]) * 100) + "%"
+              }
             />
           );
         })}
-        <TableCell className="aside" val={rowsSum[i]} rowIndex={i} />
+        <TableCell
+          className="aside"
+          val={rowsSum[rowIndex]}
+          rowIndex={rowIndex}
+        />
         <td className="button-cell">
           <button
             onClick={() =>
-              dispatch({ type: "DELETE_ROW", payload: { rowToDel: i } })
+              dispatch({ type: "DELETE_ROW", payload: { rowToDel: rowIndex } })
             }
           >
             delete row
