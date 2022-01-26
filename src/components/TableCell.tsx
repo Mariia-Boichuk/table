@@ -1,7 +1,18 @@
-import propTypes from "prop-types";
+
 import react from "react";
 
-const areEqual = (prevProps, nextProps) => {
+ interface ICell {
+  val:number,
+  className:string,
+  rowIndex:number
+  columnIndex?:number,
+  ident?:string,
+  rowHovered?:number,
+  highlightCell?:boolean,
+  valuePercent?:string,
+}
+
+const areEqual = (prevProps:ICell, nextProps:ICell):boolean => {
   return (
     nextProps.highlightCell === prevProps.highlightCell &&
     prevProps.val === nextProps.val &&
@@ -9,7 +20,7 @@ const areEqual = (prevProps, nextProps) => {
   );
 };
 
-export const TableCell = react.memo(
+export const TableCell:react.FC<ICell> = react.memo(
   ({
     val,
     className,
@@ -26,13 +37,11 @@ export const TableCell = react.memo(
         data-columnindex={columnIndex}
         data-rowindex={rowIndex}
         data-ident={ident}
-        className={`${className}
-         ${
-           rowHovered === rowIndex && className === "main-cell"
-             ? "percentage"
-             : ""
-         } 
-         ${highlightCell ? "hilight" : ""} `}
+        className={`${className} ${
+          rowHovered === rowIndex && className === "main-cell"
+            ? "percentage"
+            : ""
+        } ${highlightCell ? "hilight" : ""} `}
       >
         {rowHovered === rowIndex && className === "main-cell"
           ? valuePercent
@@ -43,12 +52,3 @@ export const TableCell = react.memo(
   areEqual
 );
 
-TableCell.propTypes = {
-  val: propTypes.number,
-  className: propTypes.string,
-  rowIndex: propTypes.number,
-  columnIndex: propTypes.number,
-  id: propTypes.string,
-  rowHovered: propTypes.number,
-  highlightCell: propTypes.bool,
-};

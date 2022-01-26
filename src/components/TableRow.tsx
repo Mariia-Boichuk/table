@@ -1,8 +1,11 @@
-import propTypes from "prop-types";
-import react from "react";
-import { TableCell } from "./TableCell.jsx";
 
-const areEqual = (prevProps, nextProps) => {
+import react, { useMemo } from "react";
+import { ITableItem } from "../helpers/interfaces";
+import { TableCell } from "./TableCell.tsx";
+
+interface RowProps {rowIndex:number, row:ITableItem[], rowHovered:number,closeValues:ITableItem[],dispatch:Function, rowsSum:Array<number>}
+
+const areEqual = (prevProps:RowProps, nextProps:RowProps):boolean => {
   const next = nextProps.row.some((col, j) => {
     return nextProps.closeValues?.some((item) => {
       return item.id === col.id;
@@ -25,15 +28,22 @@ const areEqual = (prevProps, nextProps) => {
   );
 };
 
-export const TableRow = react.memo(
-  ({ rowIndex, row, rowHovered, closeValues, dispatch, rowsSum }) => {
+export const TableRow:react.FC<RowProps> = react.memo(
+  ({ rowIndex, row, rowHovered, closeValues }) => {
+    const rowSum = useMemo(
+      () =>
+        row.reduce((a, b) => {
+          return a + b.amount;
+        }, 0),
+      [row]
+    );
+
     // console.log("row   ", rowIndex);
     return (
       <tr>
         {row.map((col, j) => {
           return (
             <TableCell
-              rowsSum={rowsSum}
               className="main-cell"
               key={col.id}
               val={col.amount}
@@ -44,24 +54,13 @@ export const TableRow = react.memo(
               rowIndex={rowIndex}
               columnIndex={j}
               rowHovered={rowHovered}
-              closeValues={closeValues}
-              valuePercent={
-                Math.round((col.amount / rowsSum[rowIndex]) * 100) + "%"
-              }
+              valuePercent={Math.round((col.amount / rowSum) * 100) + "%"}
             />
           );
         })}
-        <TableCell
-          className="aside"
-          val={rowsSum[rowIndex]}
-          rowIndex={rowIndex}
-        />
+        <TableCell className="aside" val={rowSum} rowIndex={rowIndex} />
         <td className="button-cell">
-          <button
-            onClick={() =>
-              dispatch({ type: "DELETE_ROW", payload: { rowToDel: rowIndex } })
-            }
-          >
+          <button className="button" data-rowindex={rowIndex}>
             delete row
           </button>
         </td>
@@ -71,9 +70,9 @@ export const TableRow = react.memo(
   areEqual
 );
 
-TableRow.propTypes = {
-  i: propTypes.number,
-  row: propTypes.array,
-  closeValues: propTypes.array,
-  rowHovered: propTypes.number,
-};
+// TableRow.propTypes = {
+//   i: propTypes.number,
+//   row: propTypes.array,
+//   closeValues: propTypes.array,
+//   rowHovered: propTypes.number,
+// };

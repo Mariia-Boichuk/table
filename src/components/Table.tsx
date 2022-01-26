@@ -1,36 +1,46 @@
 import propTypes from "prop-types";
 import React, { useContext, useState } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
-import { TableCell } from "./TableCell.jsx";
-import { TableRow } from "./TableRow.jsx";
+import { TableCell } from "./TableCell.tsx";
+import { TableRow } from "./TableRow.tsx";
 
 import { ClosevalsContext } from "../context/ClosevalsContextProvider.jsx";
 
 export const Table = () => {
-  const { matrix, columnsSum, dispatch, rowsSum } = useContext(MatrixContext);
+  const { matrix, columnsSum, dispatch } = useContext(MatrixContext);
   const { dispatchCloseValues, numberOfValues, closeValues } =
     useContext(ClosevalsContext);
   const [rowHovered, setRowHovered] = useState(-1);
 
   const handleClick = (e) => {
+    if (e.target.classList.contains("button")) {
+      const rowToDel = +e.target.dataset.rowindex
+      dispatch({
+        type: "DELETE_ROW",
+        payload: { rowToDel},
+      });
+    }
     if (e.target.classList.contains("main-cell")) {
+
+     const rowIndex = +e.target.dataset.rowindex
+     const columnIndex = +e.target.dataset.columnindex
       dispatch({
         type: "INCREMENT_CELL",
         payload: {
-          rowIndex: +e.target.dataset.rowindex,
-          columnIndex: +e.target.dataset.columnindex,
+          rowIndex,
+          columnIndex,
         },
       });
     }
   };
 
   const handleHover = (e) => {
-    const targetCell = e.target.innerText;
-    const id = e.target.dataset.ident;
+    const targetCell:string = e.target.innerText;
+    const id:string = e.target.dataset.ident;
     if (e.target.classList.contains("main-cell")) {
       dispatchCloseValues({
         type: "GENERATE_VALUES",
-        payload: { matrix, targetCell, numberOfValues: +numberOfValues, id },
+        payload: { matrix, targetCell:+targetCell, numberOfValues: +numberOfValues, id },
       });
     }
     if (e.target.classList.contains("aside")) {
@@ -41,9 +51,8 @@ export const Table = () => {
 
   const handleOut = (e) => {
     if (e.target.classList.contains("aside")) setRowHovered(-1);
-    // dispatchCloseValues({ type: "CLEAR_VALUES" });
   };
-  const handleLeave = (e) => {
+  const handleLeave = () => {
     dispatchCloseValues({ type: "CLEAR_VALUES" });
   };
 
@@ -63,7 +72,6 @@ export const Table = () => {
             row={item.row}
             rowHovered={rowHovered}
             closeValues={closeValues}
-            rowsSum={rowsSum}
             dispatch={dispatch}
           />
         ))}

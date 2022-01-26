@@ -27,12 +27,12 @@ export const deleteRow = (matrix, rowIndex) => {
 
 export const incrementOneCell = (matrix, rowIndex, columnIndex) => {
   return matrix.map((item, index) => {
-    const updRow = item.row.map((itemCell, jCell) => {
+    const row = item.row.map((itemCell, jCell) => {
       if (index === rowIndex && jCell === columnIndex) {
         return { ...itemCell, amount: itemCell.amount + 1 };
       }
       return itemCell;
     });
-    return { ...item, row: updRow };
+    return { ...item, row };
   });
 };

@@ -1,5 +1,5 @@
 import React, { createContext, useMemo, useReducer } from "react";
-import { getClosestValues } from "../helpers/getClosestValues";
+import { getClosestValues } from "../helpers/getClosestValues.ts";
 export const ClosevalsContext = createContext();
 
 export const closestValuesReducer = (state, action) => {

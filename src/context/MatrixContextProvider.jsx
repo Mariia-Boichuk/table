@@ -23,8 +23,9 @@ export const matrixReducer = (state, action) => {
       return { ...state, MATRIX: deleteRow(state.MATRIX, rowToDel) };
 
     case "ADD_ROW":
-      const row = Array.from({ length: action.payload.columnsQuantity }, () =>
-        generateElement()
+      const row = Array.from(
+        { length: action.payload.columnsQuantity },
+        generateElement
       );
       return {
         ...state,
@@ -47,32 +48,23 @@ export const MatrixContextProvider = (props) => {
   const [matrixState, dispatch] = useReducer(matrixReducer, {
     MATRIX: [],
   });
-  const matrix = matrixState.MATRIX;
-  const rowsSum = useMemo(() => {
-    return matrix.map((item) => {
-      return item.row?.reduce((a, b) => {
-        return a + b.amount;
-      }, 0);
-    });
-  }, [matrix]);
 
   const columnsSum = useMemo(() => {
-    return matrix.reduce((acc, item) => {
+    return matrixState.MATRIX.reduce((acc, item) => {
       item.row?.forEach((el, i) => {
         acc[i] = (acc[i] || 0) + el.amount;
       });
       return acc;
     }, []);
-  }, [matrix]);
+  }, [matrixState.MATRIX]);
 
   const value = useMemo(
     () => ({
-      rowsSum,
       columnsSum,
       matrix: matrixState.MATRIX,
       dispatch,
     }),
-    [rowsSum, columnsSum, matrixState, dispatch]
+    [columnsSum, matrixState, dispatch]
   );
 
   return (

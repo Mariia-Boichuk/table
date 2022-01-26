@@ -1,9 +1,19 @@
+import { ITableItem, Matrix } from "../helpers/interfaces";
+
+interface IArgs {
+  matrix:Matrix,
+  targetCell:number,
+  numberOfValues:number,
+  id:string,
+}
+
 export const getClosestValues = ({
   matrix,
   targetCell,
   numberOfValues,
   id,
-}) => {
+}:IArgs):ITableItem[] => {
+  
   return matrix
     .reduce((newArray, item) => newArray.concat(item.row), [])
     .sort(

@@ -5,7 +5,6 @@ import { ClosevalsContext } from "../context/ClosevalsContextProvider";
 export const InputsPanel = () => {
   const { dispatch } = useContext(MatrixContext);
   const { numberOfValues, dispatchCloseValues } = useContext(ClosevalsContext);
-
   const [rowsQuantity, setRowsQuantity] = useState(5);
   const [columnsQuantity, setColumnsQuantity] = useState(7);
 
@@ -14,23 +13,24 @@ export const InputsPanel = () => {
       <label>rows (m)</label>
       <input
         type="number"
-        onChange={(e) => setRowsQuantity(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRowsQuantity(+e.target.value)}
         value={rowsQuantity}
       />
 
       <label>columns (n)</label>
       <input
         type="number"
-        onChange={(e) => setColumnsQuantity(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setColumnsQuantity(+e.target.value)}
         value={columnsQuantity}
       />
       <label>X</label>
       <input
         type="number"
-        onChange={(e) => {
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          const numberOfValues=+e.target.value
           dispatchCloseValues({
             type: "SET_NUMBER_OF_VALUES",
-            payload: { numberOfValues: e.target.value },
+            payload: { numberOfValues },
           });
         }}
         value={numberOfValues}
