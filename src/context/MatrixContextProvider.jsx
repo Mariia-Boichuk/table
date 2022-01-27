@@ -4,7 +4,7 @@ import {
   generateElement,
   genMatrix,
   incrementOneCell,
-} from "../helpers/genMatrix";
+} from "../helpers/genMatrix.ts";
 import { v4 as uuidv4 } from "uuid";
 
 export const MatrixContext = createContext();

@@ -3,10 +3,9 @@ import React, { useContext, useState } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
 import { TableCell } from "./TableCell.tsx";
 import { TableRow } from "./TableRow.tsx";
+import { ClosevalsContext } from "../context/ClosevalsContextProvider.tsx";
 
-import { ClosevalsContext } from "../context/ClosevalsContextProvider.jsx";
-
-export const Table = () => {
+export const Table:React.FC = () => {
   const { matrix, columnsSum, dispatch } = useContext(MatrixContext);
   const { dispatchCloseValues, numberOfValues, closeValues } =
     useContext(ClosevalsContext);
@@ -70,7 +69,7 @@ export const Table = () => {
             key={item.id}
             rowIndex={i}
             row={item.row}
-            rowHovered={rowHovered}
+            rowHovered={rowHovered===i}
             closeValues={closeValues}
             dispatch={dispatch}
           />

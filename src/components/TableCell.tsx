@@ -7,7 +7,7 @@ import react from "react";
   rowIndex:number
   columnIndex?:number,
   ident?:string,
-  rowHovered?:number,
+  rowHovered?:boolean,
   highlightCell?:boolean,
   valuePercent?:string,
 }
@@ -38,12 +38,12 @@ export const TableCell:react.FC<ICell> = react.memo(
         data-rowindex={rowIndex}
         data-ident={ident}
         className={`${className} ${
-          rowHovered === rowIndex && className === "main-cell"
+          rowHovered && className === "main-cell"
             ? "percentage"
             : ""
         } ${highlightCell ? "hilight" : ""} `}
       >
-        {rowHovered === rowIndex && className === "main-cell"
+        {rowHovered  && className === "main-cell"
           ? valuePercent
           : val}
       </td>

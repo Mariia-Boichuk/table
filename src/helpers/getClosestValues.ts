@@ -13,9 +13,9 @@ export const getClosestValues = ({
   numberOfValues,
   id,
 }:IArgs):ITableItem[] => {
-  
+
   return matrix
-    .reduce((newArray, item) => newArray.concat(item.row), [])
+    .reduce((newArray:ITableItem[], item) => newArray.concat(item.row), [])
     .sort(
       (a, b) =>
         Math.abs(a.amount - targetCell) - Math.abs(b.amount - targetCell)

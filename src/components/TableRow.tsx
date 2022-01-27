@@ -3,7 +3,7 @@ import react, { useMemo } from "react";
 import { ITableItem } from "../helpers/interfaces";
 import { TableCell } from "./TableCell.tsx";
 
-interface RowProps {rowIndex:number, row:ITableItem[], rowHovered:number,closeValues:ITableItem[],dispatch:Function, rowsSum:Array<number>}
+interface RowProps {rowIndex:number, row:ITableItem[], rowHovered:boolean,closeValues:ITableItem[],dispatch:Function, rowsSum:Array<number>}
 
 const areEqual = (prevProps:RowProps, nextProps:RowProps):boolean => {
   const next = nextProps.row.some((col, j) => {
@@ -20,8 +20,7 @@ const areEqual = (prevProps:RowProps, nextProps:RowProps):boolean => {
   return (
     !next &&
     !prev &&
-    prevProps.rowIndex !== prevProps.rowHovered &&
-    nextProps.rowIndex !== nextProps.rowHovered &&
+    prevProps.rowHovered === nextProps.rowHovered &&
     prevProps.rowIndex === nextProps.rowIndex &&
     prevProps.row.map((el) => el.amount).toString() ===
       nextProps.row.map((el) => el.amount).toString()
@@ -33,6 +32,7 @@ export const TableRow:react.FC<RowProps> = react.memo(
     const rowSum = useMemo(
       () =>
         row.reduce((a, b) => {
+
           return a + b.amount;
         }, 0),
       [row]

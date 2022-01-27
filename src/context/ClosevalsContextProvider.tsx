@@ -1,8 +1,24 @@
 import React, { createContext, useMemo, useReducer } from "react";
 import { getClosestValues } from "../helpers/getClosestValues.ts";
-export const ClosevalsContext = createContext();
+import { ITableItem } from "../helpers/interfaces";
 
-export const closestValuesReducer = (state, action) => {
+type initState ={
+values: ITableItem[],
+numberOfValues:number
+}
+
+type ACTIONTYPE =
+    | { type: "GENERATE_VALUES" , payload:object}
+    | { type: "CLEAR_VALUES" }
+    | { type: "SET_NUMBER_OF_VALUES" , payload: {numberOfValues:number}};
+
+   export type GlobalContent = {
+      closeValues:ITableItem[]
+     numberOfValues:number,
+     dispatchCloseValues: React.Dispatch<ACTIONTYPE>
+    }
+
+export const closestValuesReducer = (state:initState, action:ACTIONTYPE) => {
   switch (action.type) {
     case "GENERATE_VALUES":
       const values = getClosestValues(action.payload);
@@ -20,7 +36,13 @@ export const closestValuesReducer = (state, action) => {
   }
 };
 
-export const ClosevalsContextProvider = (props) => {
+export const ClosevalsContext = createContext<GlobalContent>({
+  closeValues:[],
+ numberOfValues:6,
+dispatchCloseValues:()=>{}
+});
+
+export const ClosevalsContextProvider:React.FC = (props) => {
   const [closeValsState, dispatchCloseValues] = useReducer(
     closestValuesReducer,
     {

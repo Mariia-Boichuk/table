@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { MatrixContext } from "../context/MatrixContextProvider.jsx";
-import { ClosevalsContext } from "../context/ClosevalsContextProvider";
+import { ClosevalsContext } from "../context/ClosevalsContextProvider.tsx";
 
 export const InputsPanel = () => {
   const { dispatch } = useContext(MatrixContext);
