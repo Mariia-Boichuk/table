@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { MatrixContextProvider } from "./context/MatrixContextProvider.jsx";
-import { ClosevalsContextProvider } from "./context/ClosevalsContextProvider";
+import { ClosevalsContextProvider } from "./context/ClosevalsContextProvider.tsx";
 
 ReactDOM.render(
   <MatrixContextProvider>
