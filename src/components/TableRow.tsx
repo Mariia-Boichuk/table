@@ -1,11 +1,15 @@
-
 import react, { useMemo } from "react";
 import { ITableItem } from "../helpers/interfaces";
-import { TableCell } from "./TableCell.tsx";
+import { TableCell } from "./TableCell";
 
-interface RowProps {rowIndex:number, row:ITableItem[], rowHovered:boolean,closeValues:ITableItem[],dispatch:Function, rowsSum:Array<number>}
+interface RowProps {
+  rowIndex: number;
+  row: ITableItem[];
+  rowHovered: boolean;
+  closeValues: ITableItem[];
+}
 
-const areEqual = (prevProps:RowProps, nextProps:RowProps):boolean => {
+const areEqual = (prevProps: RowProps, nextProps: RowProps): boolean => {
   const next = nextProps.row.some((col, j) => {
     return nextProps.closeValues?.some((item) => {
       return item.id === col.id;
@@ -27,36 +31,24 @@ const areEqual = (prevProps:RowProps, nextProps:RowProps):boolean => {
   );
 };
 
-export const TableRow:react.FC<RowProps> = react.memo(
+export const TableRow: react.FC<RowProps> = react.memo(
   ({ rowIndex, row, rowHovered, closeValues }) => {
-    const rowSum = useMemo(
-      () =>
-        row.reduce((a, b) => {
+    const rowSum = useMemo(() => row.reduce((a, b) => a + b.amount, 0), [row]);
 
-          return a + b.amount;
-        }, 0),
-      [row]
-    );
-
-    // console.log("row   ", rowIndex);
     return (
       <tr>
         {row.map((col, j) => {
-          return (
-            <TableCell
-              className="main-cell"
-              key={col.id}
-              val={col.amount}
-              ident={col.id}
-              highlightCell={closeValues?.some((item) => {
-                return item.id === col.id;
-              })}
-              rowIndex={rowIndex}
-              columnIndex={j}
-              rowHovered={rowHovered}
-              valuePercent={Math.round((col.amount / rowSum) * 100) + "%"}
-            />
-          );
+          <TableCell
+            className="main-cell"
+            key={col.id}
+            val={col.amount}
+            ident={col.id}
+            highlightCell={closeValues?.some((item) => item.id === col.id)}
+            rowIndex={rowIndex}
+            columnIndex={j}
+            rowHovered={rowHovered}
+            valuePercent={Math.round((col.amount / rowSum) * 100) + "%"}
+          />;
         })}
         <TableCell className="aside" val={rowSum} rowIndex={rowIndex} />
         <td className="button-cell">
@@ -69,10 +61,3 @@ export const TableRow:react.FC<RowProps> = react.memo(
   },
   areEqual
 );
-
-// TableRow.propTypes = {
-//   i: propTypes.number,
-//   row: propTypes.array,
-//   closeValues: propTypes.array,
-//   rowHovered: propTypes.number,
-// };

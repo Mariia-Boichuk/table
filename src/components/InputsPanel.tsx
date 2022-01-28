@@ -1,33 +1,37 @@
 import React, { useContext, useState } from "react";
-import { MatrixContext } from "../context/MatrixContextProvider.jsx";
-import { ClosevalsContext } from "../context/ClosevalsContextProvider.tsx";
+import { MatrixContext } from "../context/MatrixContextProvider";
+import { ClosevalsContext } from "../context/ClosevalsContextProvider";
 
 export const InputsPanel = () => {
   const { dispatch } = useContext(MatrixContext);
   const { numberOfValues, dispatchCloseValues } = useContext(ClosevalsContext);
-  const [rowsQuantity, setRowsQuantity] = useState(5);
-  const [columnsQuantity, setColumnsQuantity] = useState(7);
+  const [rowsQuantity, setRowsQuantity] = useState<number>(5);
+  const [columnsQuantity, setColumnsQuantity] = useState<number>(7);
 
   return (
     <div>
       <label>rows (m)</label>
       <input
         type="number"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRowsQuantity(+e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setRowsQuantity(+e.target.value)
+        }
         value={rowsQuantity}
       />
 
       <label>columns (n)</label>
       <input
         type="number"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setColumnsQuantity(+e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setColumnsQuantity(+e.target.value)
+        }
         value={columnsQuantity}
       />
       <label>X</label>
       <input
         type="number"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          const numberOfValues=+e.target.value
+          const numberOfValues = +e.target.value;
           dispatchCloseValues({
             type: "SET_NUMBER_OF_VALUES",
             payload: { numberOfValues },

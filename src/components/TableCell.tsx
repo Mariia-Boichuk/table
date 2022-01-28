@@ -1,18 +1,17 @@
-
 import react from "react";
 
- interface ICell {
-  val:number,
-  className:string,
-  rowIndex:number
-  columnIndex?:number,
-  ident?:string,
-  rowHovered?:boolean,
-  highlightCell?:boolean,
-  valuePercent?:string,
+interface ICell {
+  val: number;
+  className: string;
+  rowIndex?: number;
+  columnIndex?: number;
+  ident?: string;
+  rowHovered?: boolean;
+  highlightCell?: boolean;
+  valuePercent?: string;
 }
 
-const areEqual = (prevProps:ICell, nextProps:ICell):boolean => {
+const areEqual = (prevProps: ICell, nextProps: ICell): boolean => {
   return (
     nextProps.highlightCell === prevProps.highlightCell &&
     prevProps.val === nextProps.val &&
@@ -20,7 +19,7 @@ const areEqual = (prevProps:ICell, nextProps:ICell):boolean => {
   );
 };
 
-export const TableCell:react.FC<ICell> = react.memo(
+export const TableCell: react.FC<ICell> = react.memo(
   ({
     val,
     className,
@@ -31,24 +30,18 @@ export const TableCell:react.FC<ICell> = react.memo(
     highlightCell,
     valuePercent,
   }) => {
-    //console.log("cell", rowIndex, " ", columnIndex);
     return (
       <td
         data-columnindex={columnIndex}
         data-rowindex={rowIndex}
         data-ident={ident}
         className={`${className} ${
-          rowHovered && className === "main-cell"
-            ? "percentage"
-            : ""
+          rowHovered && className === "main-cell" ? "percentage" : ""
         } ${highlightCell ? "hilight" : ""} `}
       >
-        {rowHovered  && className === "main-cell"
-          ? valuePercent
-          : val}
+        {rowHovered && className === "main-cell" ? valuePercent : val}
       </td>
     );
   },
   areEqual
 );
-
