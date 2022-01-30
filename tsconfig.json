@@ -1,0 +1,21 @@
+{
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "sourceMap": true,
+      "declaration": true,
+      "outDir": "out",
+      "noImplicitAny": true,
+      "noUnusedLocals": true,
+      "esModuleInterop": true,
+
+      "allowSyntheticDefaultImports": true,
+      "lib": ["es6"],
+      "baseUrl": "./src"
+    },
+    "include": ["./src/**/*.ts"],
+    "exclude": ["./lib/*.d.ts"]
+  }
