@@ -4,12 +4,42 @@ import {
   generateElement,
   genMatrix,
   incrementOneCell,
-} from "../helpers/genMatrix.ts";
+} from "../helpers/genMatrix";
 import { v4 as uuidv4 } from "uuid";
+import { Matrix } from "../helpers/interfaces";
 
-export const MatrixContext = createContext();
+type MatrixInitState = {
+  MATRIX: Matrix;
+};
 
-export const matrixReducer = (state, action) => {
+type MatrixActionType =
+  | {
+      type: "INCREMENT_CELL";
+      payload: { rowIndex: number; columnIndex: number };
+    }
+  | { type: "DELETE_ROW"; payload: { rowToDel: number } }
+  | {
+      type: "CREATE_MATRIX";
+      payload: { rowsQuantity: number; columnsQuantity: number };
+    }
+  | { type: "ADD_ROW"; payload: { columnsQuantity } };
+
+type MatrixGlobalContent = {
+  columnsSum: number[];
+  matrix: Matrix;
+  dispatch: React.Dispatch<MatrixActionType>;
+};
+
+export const MatrixContext = createContext<MatrixGlobalContent>({
+  columnsSum: [],
+  matrix: [],
+  dispatch: () => {},
+});
+
+export const matrixReducer = (
+  state: MatrixInitState,
+  action: MatrixActionType
+) => {
   switch (action.type) {
     case "INCREMENT_CELL":
       const { rowIndex, columnIndex } = action.payload;
@@ -44,7 +74,7 @@ export const matrixReducer = (state, action) => {
   }
 };
 
-export const MatrixContextProvider = (props) => {
+export const MatrixContextProvider: React.FC = (props) => {
   const [matrixState, dispatch] = useReducer(matrixReducer, {
     MATRIX: [],
   });

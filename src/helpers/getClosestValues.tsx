@@ -1,10 +1,10 @@
-import { ITableItem, Matrix } from "../helpers/interfaces";
+import { ITableItem, Matrix } from "./interfaces";
 
-interface IArgs {
-  matrix:Matrix,
-  targetCell:number,
-  numberOfValues:number,
-  id:string,
+export interface IArgs {
+  matrix: Matrix;
+  targetCell: number;
+  numberOfValues: number;
+  id: string;
 }
 
 export const getClosestValues = ({
@@ -12,10 +12,9 @@ export const getClosestValues = ({
   targetCell,
   numberOfValues,
   id,
-}:IArgs):ITableItem[] => {
-
+}: IArgs): ITableItem[] => {
   return matrix
-    .reduce((newArray:ITableItem[], item) => newArray.concat(item.row), [])
+    .reduce((newArray: ITableItem[], item) => newArray.concat(item.row), [])
     .sort(
       (a, b) =>
         Math.abs(a.amount - targetCell) - Math.abs(b.amount - targetCell)

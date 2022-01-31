@@ -37,7 +37,7 @@ export const TableRow: react.FC<RowProps> = react.memo(
 
     return (
       <tr>
-        {row.map((col, j) => {
+        {row.map((col, j) => (
           <TableCell
             className="main-cell"
             key={col.id}
@@ -48,8 +48,8 @@ export const TableRow: react.FC<RowProps> = react.memo(
             columnIndex={j}
             rowHovered={rowHovered}
             valuePercent={Math.round((col.amount / rowSum) * 100) + "%"}
-          />;
-        })}
+          />
+        ))}
         <TableCell className="aside" val={rowSum} rowIndex={rowIndex} />
         <td className="button-cell">
           <button className="button" data-rowindex={rowIndex}>

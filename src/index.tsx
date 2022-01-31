@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { MatrixContextProvider } from "./context/MatrixContextProvider.jsx";
-import { ClosevalsContextProvider } from "./context/ClosevalsContextProvider.tsx";
+import { MatrixContextProvider } from "./context/MatrixContextProvider";
+import { ClosevalsContextProvider } from "./context/ClosevalsContextProvider";
 
 ReactDOM.render(
   <MatrixContextProvider>

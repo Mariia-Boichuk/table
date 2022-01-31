@@ -20,6 +20,7 @@ export const Table: React.FC = () => {
         payload: { rowToDel },
       });
     }
+
     if (target.classList.contains("main-cell")) {
       const rowIndex = +target.dataset.rowindex;
       const columnIndex = +target.dataset.columnindex;
@@ -56,8 +57,9 @@ export const Table: React.FC = () => {
   };
 
   const handleOut = (e: React.MouseEvent<HTMLTableElement>) => {
-    if ((e.target as HTMLTableCellElement).classList.contains("aside"))
+    if ((e.target as HTMLTableCellElement).classList.contains("aside")) {
       setRowHovered(-1);
+    }
   };
   const handleLeave = () => {
     dispatchCloseValues({ type: "CLEAR_VALUES" });

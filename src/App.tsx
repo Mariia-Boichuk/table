@@ -1,8 +1,8 @@
 import "./App.css";
 import { useContext } from "react";
 import { MatrixContext } from "./context/MatrixContextProvider";
-import { Table } from "./components/Table.tsx";
-import { InputsPanel } from "./components/InputsPanel.tsx";
+import { Table } from "./components/Table";
+import { InputsPanel } from "./components/InputsPanel";
 
 function App() {
   const { matrix } = useContext(MatrixContext);
