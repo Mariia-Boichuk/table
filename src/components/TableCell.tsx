@@ -32,6 +32,7 @@ export const TableCell: react.FC<ICell> = react.memo(
   }) => {
     return (
       <td
+        data-testid={`cell${rowIndex}${columnIndex}`}
         data-columnindex={columnIndex}
         data-rowindex={rowIndex}
         data-ident={ident}

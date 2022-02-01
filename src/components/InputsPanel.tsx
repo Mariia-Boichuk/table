@@ -12,6 +12,7 @@ export const InputsPanel = () => {
     <div>
       <label>rows (m)</label>
       <input
+        data-testid="rows-input"
         type="number"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setRowsQuantity(+e.target.value)
