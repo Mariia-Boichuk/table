@@ -9,12 +9,12 @@ beforeEach(() => {
 
 describe("testing input for rows number", () => {
   it("input rows initially equals 5", () => {
-    expect(rowsnumberInput.value).toBe("5");
+    expect(rowsnumberInput).toHaveValue(5);
   });
 
   it("input rows number changes correctly", () => {
     fireEvent.change(rowsnumberInput, { target: { value: "9" } });
-    expect(rowsnumberInput.value).toBe("9");
+    expect(rowsnumberInput).toHaveValue(9);
   });
 });
 

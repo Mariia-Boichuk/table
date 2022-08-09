@@ -44,8 +44,8 @@ export const Table: React.FC = () => {
         type: "GENERATE_VALUES",
         payload: {
           matrix,
-          targetCell: +targetCell,
-          numberOfValues: +numberOfValues,
+          targetCell: Number(targetCell),
+          numberOfValues: Number(numberOfValues),
           id,
         },
       });

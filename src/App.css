@@ -8,20 +8,28 @@
   text-align: center;
   font-size: 14px;
   font-weight: bold;
+  font-family: Arial;
 }
 
 table {
   margin: 60px auto;
 }
+
 .main-cell {
-  padding: 8px;
-  border: 2px solid darkolivegreen;
-  background-color: darkseagreen;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 2px 2px 2px rgb(255 255 255 / 26%), -2px -2px 5px rgb(0 0 0 / 87%);
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 1px 1px 1px #000, 1px 1px 2px white;
+  background-color: rgba(0, 128, 128, 0.6);
 }
 
 .main-cell:hover {
   outline: 3px solid black;
   border-radius: 4px;
+  border-color: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+  z-index: 1;
 }
 .below {
   background-color: lightblue;
@@ -33,6 +41,11 @@ table {
   padding: 15px;
   background-color: lightcyan;
   border: 2px solid rgb(10, 67, 151);
+  text-shadow: 1px 0.5px 0.5px #000;
+}
+
+.aside:hover {
+  background-color: darkolivegreen;
 }
 
 label {
@@ -67,5 +80,5 @@ button:hover {
 }
 
 .percentage {
-  background-color: green;
+  background-color: #808000;
 }
