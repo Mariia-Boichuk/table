@@ -7,7 +7,7 @@ describe("testing cell value", () => {
     render(
       <TableCell
         className="main-cell"
-        val="499"
+        val={499}
         valuePercent="23%"
         rowHovered={true}
       />
@@ -30,7 +30,6 @@ describe("testing cell value", () => {
     );
     const cell = screen.getByRole("cell");
     expect(cell.textContent).toBe("856");
-
     fireEvent.click(cell);
   });
 });
@@ -40,7 +39,7 @@ describe("testing cell class", () => {
     render(
       <TableCell
         className="main-cell"
-        val="876"
+        val={876}
         valuePercent="43%"
         rowHovered={false}
         rowIndex={2}
@@ -57,7 +56,7 @@ describe("testing cell class", () => {
     render(
       <TableCell
         className="main-cell"
-        val="876"
+        val={876}
         valuePercent="43%"
         rowHovered={true}
         rowIndex={2}

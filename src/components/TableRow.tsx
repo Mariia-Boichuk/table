@@ -50,7 +50,12 @@ export const TableRow: react.FC<RowProps> = react.memo(
             valuePercent={Math.round((col.amount / rowSum) * 100) + "%"}
           />
         ))}
-        <TableCell className="aside" val={rowSum} rowIndex={rowIndex} />
+        <TableCell
+          className="aside"
+          val={rowSum}
+          rowIndex={rowIndex}
+          columnIndex={-1}
+        />
         <td className="button-cell">
           <button className="button" data-rowindex={rowIndex}>
             delete row

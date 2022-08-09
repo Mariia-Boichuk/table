@@ -17,5 +17,6 @@
       "baseUrl": "./src"
     },
     "include": ["./src/**/*.ts"],
+    
     "exclude": ["./lib/*.d.ts"]
   }

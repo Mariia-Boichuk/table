@@ -21,7 +21,7 @@ export const genMatrix = (
       result[i].row.push(generateElement());
     }
   }
-
+  // console.log(result);
   return result;
 };
 
